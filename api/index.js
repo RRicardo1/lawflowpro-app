@@ -75,7 +75,7 @@ app.get('/api/debug', (req, res) => {
   });
 });
 
-// Homepage route
+// Serve static HTML files
 app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, '../public/index.html');
   res.sendFile(indexPath, (err) => {
@@ -84,6 +84,97 @@ app.get('/', (req, res) => {
         error: 'Could not serve index.html', 
         details: err.message,
         path: indexPath 
+      });
+    }
+  });
+});
+
+app.get('/templates.html', (req, res) => {
+  const templatesPath = path.join(__dirname, '../public/templates.html');
+  res.sendFile(templatesPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve templates.html', 
+        details: err.message,
+        path: templatesPath 
+      });
+    }
+  });
+});
+
+app.get('/products.html', (req, res) => {
+  const productsPath = path.join(__dirname, '../public/products.html');
+  res.sendFile(productsPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve products.html', 
+        details: err.message,
+        path: productsPath 
+      });
+    }
+  });
+});
+
+app.get('/login.html', (req, res) => {
+  const loginPath = path.join(__dirname, '../public/login.html');
+  res.sendFile(loginPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve login.html', 
+        details: err.message,
+        path: loginPath 
+      });
+    }
+  });
+});
+
+app.get('/pricing.html', (req, res) => {
+  const pricingPath = path.join(__dirname, '../public/pricing.html');
+  res.sendFile(pricingPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve pricing.html', 
+        details: err.message,
+        path: pricingPath 
+      });
+    }
+  });
+});
+
+app.get('/enterprise.html', (req, res) => {
+  const enterprisePath = path.join(__dirname, '../public/enterprise.html');
+  res.sendFile(enterprisePath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve enterprise.html', 
+        details: err.message,
+        path: enterprisePath 
+      });
+    }
+  });
+});
+
+app.get('/resources.html', (req, res) => {
+  const resourcesPath = path.join(__dirname, '../public/resources.html');
+  res.sendFile(resourcesPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve resources.html', 
+        details: err.message,
+        path: resourcesPath 
+      });
+    }
+  });
+});
+
+app.get('/solutions.html', (req, res) => {
+  const solutionsPath = path.join(__dirname, '../public/solutions.html');
+  res.sendFile(solutionsPath, (err) => {
+    if (err) {
+      res.status(500).json({ 
+        error: 'Could not serve solutions.html', 
+        details: err.message,
+        path: solutionsPath 
       });
     }
   });
