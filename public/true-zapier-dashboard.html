@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB AI Platform - Zapier-Style Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Zapier 2025 Color Scheme
+                        'zapier-purple': '#6366F1',
+                        'zapier-purple-light': '#8B5CF6',
+                        'zapier-purple-dark': '#4F46E5',
+                        'zapier-cream': '#FFFEFB',
+                        'zapier-beige': '#F8F4F0',
+                        'zapier-beige-dark': '#ECE9DF',
+                        'zapier-brown': '#201515',
+                        'zapier-gray': '#6B7280',
+                        'zapier-gray-light': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-item:hover {
+            background-color: #F3F4F6;
+        }
+        .sidebar-item.active {
+            background-color: #6366F1;
+            color: white;
+        }
+        .sidebar-item.active:hover {
+            background-color: #4F46E5;
+        }
+        .workflow-node {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            position: relative;
+        }
+        .workflow-node:hover {
+            border-color: #6366F1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        }
+        .workflow-connector {
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background: #D1D5DB;
+            transform: translateY(-1px);
+        }
+        .workflow-connector::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid #D1D5DB;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        .app-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        .app-card:hover {
+            border-color: #6366F1;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-zapier-cream font-inter">
+    <!-- Main Layout -->
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white border-r border-zapier-beige-dark flex flex-col">
+            <!-- Logo -->
+            <div class="p-6 border-b border-zapier-beige-dark">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-zapier-purple rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-semibold text-zapier-brown">SMB AI Platform</h1>
+                        <p class="text-xs text-zapier-gray">AI-Powered Automation</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-2">
+                <div class="mb-4">
+                    <button onclick="createZap()" class="w-full bg-zapier-purple text-white px-4 py-3 rounded-lg font-medium hover:bg-zapier-purple-dark transition-colors flex items-center justify-center space-x-2">
+                        <span class="text-lg">+</span>
+                        <span>Create AI Workflow</span>
+                    </button>
+                </div>
+
+                <button onclick="showSection('dashboard')" id="nav-dashboard" class="sidebar-item active w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors">
+                    <span class="text-lg">🏠</span>
+                    <span class="font-medium">Home</span>
+                </button>
+
+                <button onclick="showSection('zaps')" id="nav-zaps" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                    <span class="text-lg">⚡</span>
+                    <span class="font-medium">My Workflows</span>
+                    <span class="ml-auto bg-zapier-gray-light text-zapier-gray text-xs px-2 py-1 rounded-full">3</span>
+                </button>
+
+                <button onclick="showSection('interfaces')" id="nav-interfaces" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                    <span class="text-lg">📱</span>
+                    <span class="font-medium">Interfaces</span>
+                    <span class="ml-auto bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full">New</span>
+                </button>
+
+                <button onclick="showSection('chatbots')" id="nav-chatbots" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                    <span class="text-lg">🤖</span>
+                    <span class="font-medium">AI Chatbots</span>
+                </button>
+
+                <button onclick="showSection('tables')" id="nav-tables" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                    <span class="text-lg">📊</span>
+                    <span class="font-medium">Tables</span>
+                </button>
+
+                <button onclick="showSection('apps')" id="nav-apps" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                    <span class="text-lg">🔌</span>
+                    <span class="font-medium">Apps</span>
+                </button>
+
+                <div class="border-t border-zapier-beige-dark pt-4 mt-4">
+                    <button onclick="showSection('history')" id="nav-history" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                        <span class="text-lg">📈</span>
+                        <span class="font-medium">History</span>
+                    </button>
+
+                    <button onclick="showSection('settings')" id="nav-settings" class="sidebar-item w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors text-zapier-gray">
+                        <span class="text-lg">⚙️</span>
+                        <span class="font-medium">Settings</span>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-4 border-t border-zapier-beige-dark">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-zapier-purple rounded-full flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">U</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-zapier-brown">Demo User</p>
+                        <p class="text-xs text-zapier-gray">Free Plan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <header class="bg-white border-b border-zapier-beige-dark px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="page-title" class="text-2xl font-semibold text-zapier-brown">Home</h2>
+                        <p id="page-subtitle" class="text-sm text-zapier-gray mt-1">Welcome to your AI automation dashboard</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span id="backend-status">AI Active</span>
+                        </div>
+                        <button class="p-2 text-zapier-gray hover:text-zapier-brown rounded-lg hover:bg-zapier-gray-light">
+                            <span class="text-xl">🔔</span>
+                        </button>
+                        <button class="p-2 text-zapier-gray hover:text-zapier-brown rounded-lg hover:bg-zapier-gray-light">
+                            <span class="text-xl">❓</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto bg-zapier-cream">
+                
+                <!-- Dashboard Content -->
+                <div id="content-dashboard" class="p-6">
+                    <!-- Welcome Banner -->
+                    <div class="bg-gradient-to-r from-zapier-purple to-zapier-purple-light rounded-xl p-8 text-white mb-8">
+                        <div class="max-w-2xl">
+                            <h3 class="text-2xl font-bold mb-3">Automate your business with AI</h3>
+                            <p class="text-purple-100 mb-6">Connect your apps and let AI handle the repetitive work. Save 15+ hours per week with intelligent automation.</p>
+                            <div class="flex space-x-4">
+                                <button onclick="createZap()" class="bg-white text-zapier-purple px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                                    Create Your First Workflow
+                                </button>
+                                <button onclick="showSection('apps')" class="border border-purple-200 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors">
+                                    Browse Apps
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-xl p-6 border border-zapier-beige-dark">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-blue-100 rounded-lg">
+                                    <span class="text-blue-600 text-xl">📧</span>
+                                </div>
+                                <span class="text-xs text-green-600 font-medium bg-green-100 px-2 py-1 rounded-full">↗ +23%</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-zapier-brown" id="emails-processed">0</h3>
+                            <p class="text-sm text-zapier-gray">Emails processed</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 border border-zapier-beige-dark">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-green-100 rounded-lg">
+                                    <span class="text-green-600 text-xl">⏰</span>
+                                </div>
+                                <span class="text-xs text-green-600 font-medium bg-green-100 px-2 py-1 rounded-full">+12h</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-zapier-brown" id="time-saved">0h</h3>
+                            <p class="text-sm text-zapier-gray">Time saved this week</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 border border-zapier-beige-dark">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-zapier-purple bg-opacity-10 rounded-lg">
+                                    <span class="text-zapier-purple text-xl">⚡</span>
+                                </div>
+                                <span class="text-xs text-zapier-purple font-medium bg-purple-100 px-2 py-1 rounded-full">3 active</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-zapier-brown" id="workflows-count">0</h3>
+                            <p class="text-sm text-zapier-gray">AI Workflows</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 border border-zapier-beige-dark">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-orange-100 rounded-lg">
+                                    <span class="text-orange-600 text-xl">🔌</span>
+                                </div>
+                                <span class="text-xs text-orange-600 font-medium bg-orange-100 px-2 py-1 rounded-full">+2 new</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-zapier-brown" id="integrations-count">0</h3>
+                            <p class="text-sm text-zapier-gray">Connected apps</p>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity & Quick Actions -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Recent Workflows -->
+                        <div class="bg-white rounded-xl border border-zapier-beige-dark">
+                            <div class="p-6 border-b border-zapier-beige-dark">
+                                <h3 class="text-lg font-semibold text-zapier-brown">Recent Workflows</h3>
+                                <p class="text-sm text-zapier-gray">Your latest AI automations</p>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex items-center space-x-4 p-4 bg-zapier-beige rounded-lg">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-blue-600">📧</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-zapier-brown">Email AI Classifier</h4>
+                                        <p class="text-sm text-zapier-gray">Auto-categorize urgent client emails</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-green-600">Active</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center space-x-4 p-4 bg-zapier-beige rounded-lg">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-zapier-purple">✨</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-zapier-brown">AI Response Generator</h4>
+                                        <p class="text-sm text-zapier-gray">Create professional email replies</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-green-600">Active</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center space-x-4 p-4 bg-zapier-beige rounded-lg">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-yellow-600">📅</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-zapier-brown">Smart Scheduler</h4>
+                                        <p class="text-sm text-zapier-gray">Auto-book appointments from emails</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                        <span class="text-sm text-yellow-600">Paused</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="bg-white rounded-xl border border-zapier-beige-dark">
+                            <div class="p-6 border-b border-zapier-beige-dark">
+                                <h3 class="text-lg font-semibold text-zapier-brown">Quick Actions</h3>
+                                <p class="text-sm text-zapier-gray">Test your AI automation features</p>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <button onclick="testAPI('signup')" class="w-full flex items-center p-4 text-left hover:bg-zapier-beige rounded-lg transition-colors group">
+                                    <div class="p-3 bg-blue-100 rounded-lg mr-4 group-hover:bg-blue-200 transition-colors">
+                                        <span class="text-blue-600 text-xl">👤</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-zapier-brown">Create Demo Account</h4>
+                                        <p class="text-sm text-zapier-gray">Test user registration system</p>
+                                    </div>
+                                    <span class="ml-auto text-zapier-purple">→</span>
+                                </button>
+
+                                <button onclick="testAPI('classify')" class="w-full flex items-center p-4 text-left hover:bg-zapier-beige rounded-lg transition-colors group">
+                                    <div class="p-3 bg-green-100 rounded-lg mr-4 group-hover:bg-green-200 transition-colors">
+                                        <span class="text-green-600 text-xl">🤖</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-zapier-brown">Test AI Classification</h4>
+                                        <p class="text-sm text-zapier-gray">See how AI categorizes emails</p>
+                                    </div>
+                                    <span class="ml-auto text-zapier-purple">→</span>
+                                </button>
+
+                                <button onclick="testAPI('response')" class="w-full flex items-center p-4 text-left hover:bg-zapier-beige rounded-lg transition-colors group">
+                                    <div class="p-3 bg-purple-100 rounded-lg mr-4 group-hover:bg-purple-200 transition-colors">
+                                        <span class="text-zapier-purple text-xl">✨</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-zapier-brown">Generate AI Response</h4>
+                                        <p class="text-sm text-zapier-gray">Create professional email replies</p>
+                                    </div>
+                                    <span class="ml-auto text-zapier-purple">→</span>
+                                </button>
+
+                                <button onclick="testAPI('integration')" class="w-full flex items-center p-4 text-left hover:bg-zapier-beige rounded-lg transition-colors group">
+                                    <div class="p-3 bg-orange-100 rounded-lg mr-4 group-hover:bg-orange-200 transition-colors">
+                                        <span class="text-orange-600 text-xl">🔌</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-zapier-brown">Connect Gmail</h4>
+                                        <p class="text-sm text-zapier-gray">Test email integration</p>
+                                    </div>
+                                    <span class="ml-auto text-zapier-purple">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflows/Zaps Content -->
+                <div id="content-zaps" class="p-6" style="display: none;">
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-zapier-brown">My Workflows</h3>
+                                <p class="text-zapier-gray">AI-powered automations for your business</p>
+                            </div>
+                            <button onclick="createZap()" class="bg-zapier-purple text-white px-4 py-2 rounded-lg font-medium hover:bg-zapier-purple-dark flex items-center space-x-2">
+                                <span>+</span>
+                                <span>Create Workflow</span>
+                            </button>
+                        </div>
+
+                        <!-- Filter Tabs -->
+                        <div class="flex space-x-1 bg-zapier-gray-light p-1 rounded-lg w-fit">
+                            <button class="px-4 py-2 bg-white text-zapier-brown rounded-md font-medium shadow-sm">All</button>
+                            <button class="px-4 py-2 text-zapier-gray hover:text-zapier-brown">Active</button>
+                            <button class="px-4 py-2 text-zapier-gray hover:text-zapier-brown">Draft</button>
+                            <button class="px-4 py-2 text-zapier-gray hover:text-zapier-brown">Paused</button>
+                        </div>
+                    </div>
+
+                    <!-- Workflow List -->
+                    <div class="space-y-4">
+                        <!-- Sample Workflow 1 -->
+                        <div class="bg-white rounded-xl border border-zapier-beige-dark p-6 hover:border-zapier-purple transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <h4 class="font-semibold text-zapier-brown">Email AI Classifier</h4>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm text-zapier-gray">Ran 23 times</span>
+                                    <button class="text-zapier-gray hover:text-zapier-brown">⚙️</button>
+                                    <button class="text-zapier-gray hover:text-zapier-brown">⋯</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Workflow Visual -->
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-blue-600">📧</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">Gmail</p>
+                                    <p class="text-xs text-zapier-gray">New email</p>
+                                    <div class="workflow-connector"></div>
+                                </div>
+                                
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-zapier-purple bg-opacity-10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-zapier-purple">🤖</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">AI Classifier</p>
+                                    <p class="text-xs text-zapier-gray">Categorize email</p>
+                                    <div class="workflow-connector"></div>
+                                </div>
+                                
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-green-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-green-600">📱</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">SMS</p>
+                                    <p class="text-xs text-zapier-gray">Send alert</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-sm text-zapier-gray">
+                                <span>Last ran 2 hours ago</span>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">98% success rate</span>
+                            </div>
+                        </div>
+
+                        <!-- Sample Workflow 2 -->
+                        <div class="bg-white rounded-xl border border-zapier-beige-dark p-6 hover:border-zapier-purple transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <h4 class="font-semibold text-zapier-brown">AI Response Generator</h4>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm text-zapier-gray">Ran 45 times</span>
+                                    <button class="text-zapier-gray hover:text-zapier-brown">⚙️</button>
+                                    <button class="text-zapier-gray hover:text-zapier-brown">⋯</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Workflow Visual -->
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-blue-600">📧</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">Gmail</p>
+                                    <p class="text-xs text-zapier-gray">Client inquiry</p>
+                                    <div class="workflow-connector"></div>
+                                </div>
+                                
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-zapier-purple bg-opacity-10 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-zapier-purple">✨</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">AI Response</p>
+                                    <p class="text-xs text-zapier-gray">Generate reply</p>
+                                    <div class="workflow-connector"></div>
+                                </div>
+                                
+                                <div class="workflow-node p-4 text-center min-w-[120px]">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                                        <span class="text-blue-600">📤</span>
+                                    </div>
+                                    <p class="text-sm font-medium text-zapier-brown">Gmail</p>
+                                    <p class="text-xs text-zapier-gray">Send reply</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-sm text-zapier-gray">
+                                <span>Last ran 1 hour ago</span>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">94% success rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apps Content -->
+                <div id="content-apps" class="p-6" style="display: none;">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">Apps</h3>
+                        <p class="text-zapier-gray mb-6">Connect your favorite tools and services</p>
+                        
+                        <!-- Search and Filter -->
+                        <div class="flex flex-col md:flex-row gap-4 mb-6">
+                            <div class="flex-1">
+                                <input type="text" placeholder="Search 8,000+ apps..." class="w-full px-4 py-3 border border-zapier-beige-dark rounded-lg focus:outline-none focus:border-zapier-purple bg-white">
+                            </div>
+                            <div class="flex space-x-2">
+                                <select class="px-4 py-3 border border-zapier-beige-dark rounded-lg focus:outline-none focus:border-zapier-purple bg-white">
+                                    <option>All Categories</option>
+                                    <option>Email</option>
+                                    <option>CRM</option>
+                                    <option>Productivity</option>
+                                    <option>Finance</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Apps -->
+                    <div class="mb-8">
+                        <h4 class="font-semibold text-zapier-brown mb-4">Popular for your business type</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="app-card p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                        <span class="text-red-600 text-xl">📧</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-zapier-brown">Gmail</h5>
+                                        <p class="text-sm text-zapier-gray">Email</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-zapier-gray mb-4">The email service by Google</p>
+                                <button onclick="testAPI('integration')" class="w-full bg-zapier-purple text-white py-2 px-4 rounded-lg hover:bg-zapier-purple-dark transition-colors font-medium">
+                                    Connect
+                                </button>
+                            </div>
+
+                            <div class="app-card p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                        <span class="text-blue-600 text-xl">📅</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-zapier-brown">Google Calendar</h5>
+                                        <p class="text-sm text-zapier-gray">Calendar</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-zapier-gray mb-4">Time management and scheduling</p>
+                                <button class="w-full border border-zapier-beige-dark text-zapier-gray py-2 px-4 rounded-lg hover:border-zapier-purple hover:text-zapier-purple transition-colors font-medium">
+                                    Connect
+                                </button>
+                            </div>
+
+                            <div class="app-card p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                        <span class="text-green-600 text-xl">💰</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-zapier-brown">QuickBooks</h5>
+                                        <p class="text-sm text-zapier-gray">Accounting</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-zapier-gray mb-4">Accounting software for small businesses</p>
+                                <button class="w-full border border-zapier-beige-dark text-zapier-gray py-2 px-4 rounded-lg hover:border-zapier-purple hover:text-zapier-purple transition-colors font-medium">
+                                    Connect
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Apps -->
+                    <div>
+                        <h4 class="font-semibold text-zapier-brown mb-4">All Apps</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="app-card p-4">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-zapier-purple text-sm">S</span>
+                                    </div>
+                                    <h5 class="font-medium text-zapier-brown">Slack</h5>
+                                </div>
+                                <p class="text-xs text-zapier-gray mb-3">Team communication</p>
+                                <button class="text-zapier-purple text-sm font-medium hover:underline">Connect</button>
+                            </div>
+
+                            <div class="app-card p-4">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-blue-600 text-sm">T</span>
+                                    </div>
+                                    <h5 class="font-medium text-zapier-brown">Trello</h5>
+                                </div>
+                                <p class="text-xs text-zapier-gray mb-3">Project management</p>
+                                <button class="text-zapier-purple text-sm font-medium hover:underline">Connect</button>
+                            </div>
+
+                            <div class="app-card p-4">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-yellow-600 text-sm">A</span>
+                                    </div>
+                                    <h5 class="font-medium text-zapier-brown">Airtable</h5>
+                                </div>
+                                <p class="text-xs text-zapier-gray mb-3">Database & spreadsheets</p>
+                                <button class="text-zapier-purple text-sm font-medium hover:underline">Connect</button>
+                            </div>
+
+                            <div class="app-card p-4">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-red-600 text-sm">H</span>
+                                    </div>
+                                    <h5 class="font-medium text-zapier-brown">HubSpot</h5>
+                                </div>
+                                <p class="text-xs text-zapier-gray mb-3">CRM & marketing</p>
+                                <button class="text-zapier-purple text-sm font-medium hover:underline">Connect</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other sections (placeholder content) -->
+                <div id="content-interfaces" class="p-6 text-center" style="display: none;">
+                    <div class="bg-white rounded-xl border border-zapier-beige-dark p-12">
+                        <div class="w-16 h-16 bg-zapier-purple bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-zapier-purple text-2xl">📱</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">Interfaces Coming Soon</h3>
+                        <p class="text-zapier-gray mb-6">Build custom interfaces for your workflows</p>
+                        <button onclick="showSection('dashboard')" class="bg-zapier-purple text-white px-6 py-3 rounded-lg hover:bg-zapier-purple-dark">
+                            Back to Home
+                        </button>
+                    </div>
+                </div>
+
+                <div id="content-chatbots" class="p-6 text-center" style="display: none;">
+                    <div class="bg-white rounded-xl border border-zapier-beige-dark p-12">
+                        <div class="w-16 h-16 bg-zapier-purple bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-zapier-purple text-2xl">🤖</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">AI Chatbots Coming Soon</h3>
+                        <p class="text-zapier-gray mb-6">Create intelligent chatbots for customer support</p>
+                        <button onclick="showSection('dashboard')" class="bg-zapier-purple text-white px-6 py-3 rounded-lg hover:bg-zapier-purple-dark">
+                            Back to Home
+                        </button>
+                    </div>
+                </div>
+
+                <div id="content-tables" class="p-6 text-center" style="display: none;">
+                    <div class="bg-white rounded-xl border border-zapier-beige-dark p-12">
+                        <div class="w-16 h-16 bg-zapier-purple bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-zapier-purple text-2xl">📊</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">Tables Coming Soon</h3>
+                        <p class="text-zapier-gray mb-6">Store and manage your automation data</p>
+                        <button onclick="showSection('dashboard')" class="bg-zapier-purple text-white px-6 py-3 rounded-lg hover:bg-zapier-purple-dark">
+                            Back to Home
+                        </button>
+                    </div>
+                </div>
+
+                <div id="content-history" class="p-6 text-center" style="display: none;">
+                    <div class="bg-white rounded-xl border border-zapier-beige-dark p-12">
+                        <div class="w-16 h-16 bg-zapier-purple bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-zapier-purple text-2xl">📈</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">History Coming Soon</h3>
+                        <p class="text-zapier-gray mb-6">View your automation run history</p>
+                        <button onclick="showSection('dashboard')" class="bg-zapier-purple text-white px-6 py-3 rounded-lg hover:bg-zapier-purple-dark">
+                            Back to Home
+                        </button>
+                    </div>
+                </div>
+
+                <div id="content-settings" class="p-6 text-center" style="display: none;">
+                    <div class="bg-white rounded-xl border border-zapier-beige-dark p-12">
+                        <div class="w-16 h-16 bg-zapier-purple bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-zapier-purple text-2xl">⚙️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-zapier-brown mb-2">Settings Coming Soon</h3>
+                        <p class="text-zapier-gray mb-6">Configure your account and preferences</p>
+                        <button onclick="showSection('dashboard')" class="bg-zapier-purple text-white px-6 py-3 rounded-lg hover:bg-zapier-purple-dark">
+                            Back to Home
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- API Response Modal -->
+    <div id="api-response-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-96 overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-zapier-brown">API Response</h3>
+                <button onclick="hideResponse()" class="text-zapier-gray hover:text-zapier-brown text-xl">&times;</button>
+            </div>
+            <pre id="response-content" class="bg-zapier-beige p-4 rounded-lg text-sm overflow-auto"></pre>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 'dashboard';
+        let userToken = null;
+
+        // Navigation Functions
+        function showSection(sectionId) {
+            // Hide all content sections
+            document.querySelectorAll('[id^="content-"]').forEach(el => el.style.display = 'none');
+            
+            // Show selected section
+            document.getElementById(`content-${sectionId}`).style.display = 'block';
+            
+            // Update navigation styling
+            document.querySelectorAll('.sidebar-item').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-zapier-gray');
+            });
+            
+            const activeNav = document.getElementById(`nav-${sectionId}`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+                activeNav.classList.remove('text-zapier-gray');
+            }
+            
+            // Update page title
+            const titles = {
+                'dashboard': { title: 'Home', subtitle: 'Welcome to your AI automation dashboard' },
+                'zaps': { title: 'My Workflows', subtitle: 'Manage your AI-powered automations' },
+                'interfaces': { title: 'Interfaces', subtitle: 'Build custom interfaces for your data' },
+                'chatbots': { title: 'AI Chatbots', subtitle: 'Create intelligent conversational agents' },
+                'tables': { title: 'Tables', subtitle: 'Store and manage your data' },
+                'apps': { title: 'Apps', subtitle: 'Connect your favorite tools and services' },
+                'history': { title: 'History', subtitle: 'View your automation activity' },
+                'settings': { title: 'Settings', subtitle: 'Configure your account and preferences' }
+            };
+            
+            if (titles[sectionId]) {
+                document.getElementById('page-title').textContent = titles[sectionId].title;
+                document.getElementById('page-subtitle').textContent = titles[sectionId].subtitle;
+            }
+            
+            currentSection = sectionId;
+        }
+
+        function createZap() {
+            alert('🚀 Workflow builder coming soon! This will open the visual workflow editor where you can drag and drop apps to create custom automations.');
+        }
+
+        // API Testing Functions
+        async function testAPI(type) {
+            let response, data;
+            
+            try {
+                switch (type) {
+                    case 'classify':
+                        if (!userToken) {
+                            alert('Please create a demo account first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/classify', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                subject: 'Urgent: Legal consultation needed ASAP',
+                                body: 'Hi, I need immediate legal advice regarding a contract dispute. This is time sensitive and could affect our business significantly.',
+                                from: 'client@lawfirm.com'
+                            })
+                        });
+                        break;
+                        
+                    case 'response':
+                        if (!userToken) {
+                            alert('Please create a demo account first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/generate-response', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                originalSubject: 'Question about legal services for small business',
+                                originalBody: 'Hi, I need some advice about my business legal requirements and contract review services.',
+                                from: 'business@client.com',
+                                classification: 'CLIENT'
+                            })
+                        });
+                        break;
+                        
+                    case 'signup':
+                        response = await fetch('http://localhost:3001/api/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: `demo${Date.now()}@example.com`,
+                                password: 'DemoPass123!',
+                                name: 'Demo User',
+                                businessName: 'Demo Law Firm',
+                                businessType: 'LAW'
+                            })
+                        });
+                        if (response.ok) {
+                            const signupData = await response.json();
+                            if (signupData.success && signupData.data.accessToken) {
+                                userToken = signupData.data.accessToken;
+                                alert('✅ Demo account created successfully! You can now test all AI features.');
+                            }
+                        }
+                        break;
+                        
+                    case 'integration':
+                        if (!userToken) {
+                            alert('Please create a demo account first to test integrations!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/integrations/connect/GMAIL', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({})
+                        });
+                        break;
+                }
+                
+                data = await response.json();
+                showResponse(JSON.stringify(data, null, 2));
+                
+            } catch (error) {
+                showResponse(`Error: ${error.message}`);
+            }
+        }
+
+        function showResponse(content) {
+            document.getElementById('api-response-modal').style.display = 'flex';
+            document.getElementById('response-content').textContent = content;
+        }
+
+        function hideResponse() {
+            document.getElementById('api-response-modal').style.display = 'none';
+        }
+
+        // Load Platform Data
+        async function loadData() {
+            try {
+                // Check backend status
+                const healthResponse = await fetch('http://localhost:3001/health');
+                if (healthResponse.ok) {
+                    document.getElementById('backend-status').textContent = 'AI Active';
+                } else {
+                    document.getElementById('backend-status').textContent = 'Offline';
+                }
+                
+                // Load platform stats
+                const infoResponse = await fetch('http://localhost:3001/api/info');
+                const infoData = await infoResponse.json();
+                
+                if (infoData.success) {
+                    const emailsProcessed = Math.floor(Math.random() * 150) + 50;
+                    const timeSaved = Math.floor(Math.random() * 40) + 10;
+                    
+                    document.getElementById('emails-processed').textContent = emailsProcessed;
+                    document.getElementById('time-saved').textContent = timeSaved + 'h';
+                    document.getElementById('integrations-count').textContent = infoData.data.activeIntegrations;
+                    document.getElementById('workflows-count').textContent = infoData.data.runningAutomations;
+                }
+                
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                document.getElementById('backend-status').textContent = 'Connection Failed';
+            }
+        }
+
+        // Initialize
+        loadData();
+        setInterval(loadData, 30000); // Refresh every 30 seconds
+        showSection('dashboard'); // Show dashboard by default
+    </script>
+</body>
+</html>

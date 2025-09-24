@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Templates - LawFlowPro</title>
+    <link rel="stylesheet" href="css/shared.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚖️</div>
+                    LawFlowPro
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="templates.html" class="active">Templates</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+                
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-secondary">Log in</a>
+                    <button class="btn btn-primary" onclick="realSignup()">Sign up for free</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Legal Document & Email Templates</h1>
+            <p>200+ professional legal templates for every practice area. Save hours on document creation with attorney-reviewed templates ready to customize for your clients.</p>
+        </div>
+    </section>
+
+    <!-- Template Categories -->
+    <section class="main-content">
+        <div class="container">
+            
+            <!-- Email Response Templates -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">📧 Email Response Templates</h2>
+                
+                <div class="content-grid grid-3">
+                    <div class="content-card">
+                        <h3>⚖️ Client Communication</h3>
+                        <p>Professional email templates for client interactions, case updates, and consultation requests.</p>
+                        <ul style="list-style: none; margin: 20px 0;">
+                            <li style="padding: 4px 0;">✓ Initial consultation response</li>
+                            <li style="padding: 4px 0;">✓ Case status updates</li>
+                            <li style="padding: 4px 0;">✓ Document request emails</li>
+                            <li style="padding: 4px 0;">✓ Appointment scheduling</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="showTemplatePreview('client-communication')">Preview Templates</button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>🏛️ Court & Legal Communications</h3>
+                        <p>Formal templates for opposing counsel, court clerks, and official legal correspondence.</p>
+                        <ul style="list-style: none; margin: 20px 0;">
+                            <li style="padding: 4px 0;">✓ Opposing counsel letters</li>
+                            <li style="padding: 4px 0;">✓ Court filing notifications</li>
+                            <li style="padding: 4px 0;">✓ Discovery requests</li>
+                            <li style="padding: 4px 0;">✓ Settlement discussions</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="showTemplatePreview('court-communications')">Preview Templates</button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>💰 Billing & Business</h3>
+                        <p>Professional templates for billing inquiries, retainer discussions, and business development.</p>
+                        <ul style="list-style: none; margin: 20px 0;">
+                            <li style="padding: 4px 0;">✓ Invoice explanations</li>
+                            <li style="padding: 4px 0;">✓ Retainer agreements</li>
+                            <li style="padding: 4px 0;">✓ Payment reminders</li>
+                            <li style="padding: 4px 0;">✓ Fee agreements</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="showTemplatePreview('billing-business')">Preview Templates</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legal Document Templates -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">📄 Legal Document Templates</h2>
+                
+                <div class="content-grid grid-2">
+                    <div class="content-card">
+                        <h3>📋 Client Intake & Agreements</h3>
+                        <p style="margin-bottom: 20px;">Essential documents for new client onboarding and engagement.</p>
+                        <ul style="list-style: none; margin-bottom: 20px;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Retainer Agreement Template</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Client Intake Form</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Engagement Letter</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Fee Agreement Template</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('client-agreements')">View All Templates</button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>⚖️ Litigation Documents</h3>
+                        <p style="margin-bottom: 20px;">Court filings, motions, and litigation support documents.</p>
+                        <ul style="list-style: none; margin-bottom: 20px;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Motion Templates</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Discovery Requests</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Settlement Agreements</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Demand Letters</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">NEW</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('litigation-docs')">View All Templates</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Area Templates -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">🏛️ Practice Area Specific Templates</h2>
+                
+                <div class="content-grid grid-4">
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">🚗</div>
+                        <h4>Personal Injury</h4>
+                        <p style="color: #6B7280; font-size: 14px; margin-bottom: 16px;">25+ templates for personal injury practice</p>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('personal-injury')" style="width: 100%;">View Templates</button>
+                    </div>
+                    
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">👨‍👩‍👧‍👦</div>
+                        <h4>Family Law</h4>
+                        <p style="color: #6B7280; font-size: 14px; margin-bottom: 16px;">30+ templates for family law practice</p>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('family-law')" style="width: 100%;">View Templates</button>
+                    </div>
+                    
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">🏢</div>
+                        <h4>Corporate Law</h4>
+                        <p style="color: #6B7280; font-size: 14px; margin-bottom: 16px;">40+ templates for business law</p>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('corporate-law')" style="width: 100%;">View Templates</button>
+                    </div>
+                    
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">🏠</div>
+                        <h4>Real Estate</h4>
+                        <p style="color: #6B7280; font-size: 14px; margin-bottom: 16px;">35+ templates for real estate law</p>
+                        <button class="btn btn-secondary" onclick="showTemplatePreview('real-estate')" style="width: 100%;">View Templates</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template Features -->
+            <div class="content-card" style="background: #F8F4F0; margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 32px;">✨ Template Features</h2>
+                
+                <div class="content-grid grid-3">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; margin: 0 auto 16px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">📝</div>
+                        <h4>Customizable Fields</h4>
+                        <p style="color: #6B7280; font-size: 14px;">Fill-in-the-blank templates with smart field detection</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; margin: 0 auto 16px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">🔄</div>
+                        <h4>Auto-Save & Sync</h4>
+                        <p style="color: #6B7280; font-size: 14px;">Automatically save your customizations and sync across devices</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; margin: 0 auto 16px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">📤</div>
+                        <h4>Export Options</h4>
+                        <p style="color: #6B7280; font-size: 14px;">Export to Word, PDF, or email directly from the platform</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: #FF4F00; padding: 80px 0; text-align: center; color: white;">
+        <div class="container">
+            <h2 style="font-size: 48px; font-weight: 700; margin-bottom: 24px;">Ready to Save Hours on Documents?</h2>
+            <p style="font-size: 20px; margin-bottom: 40px; opacity: 0.9;">Access 200+ legal templates with your LawFlowPro subscription</p>
+            <button class="btn btn-white" onclick="realSignup()">Start Free Month - Access All Templates</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">⚖️</div>
+                        <span style="font-weight: bold; font-size: 18px;">LawFlowPro</span>
+                    </div>
+                    <p style="color: #9CA3AF; max-width: 300px;">AI-powered legal practice flow optimization platform built specifically for attorneys and law firms.</p>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Products</h4>
+                        <li><a href="products.html">AI Workflows</a></li>
+                        <li><a href="templates.html">Legal Templates</a></li>
+                        <li><a href="#" onclick="testAPI('classify')">Email Processing</a></li>
+                        <li><a href="#" onclick="testAPI('integration')">Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Solutions</h4>
+                        <li><a href="solutions.html">Law Firms</a></li>
+                        <li><a href="solutions.html">Real Estate</a></li>
+                        <li><a href="solutions.html">Small Business</a></li>
+                        <li><a href="solutions.html">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Resources</h4>
+                        <li><a href="resources.html">Help Center</a></li>
+                        <li><a href="resources.html">Blog</a></li>
+                        <li><a href="resources.html">API Docs</a></li>
+                        <li><a href="resources.html">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2025 LawFlowPro. All rights reserved.</div>
+                <div>
+                    <a href="#" style="margin-right: 24px;">Privacy Policy</a>
+                    <a href="#" style="margin-right: 24px;">Terms</a>
+                    <a href="#" style="margin-right: 24px;">Templates</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Template Preview Modal -->
+    <div class="modal" id="template-modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="template-modal-title">Template Preview</h3>
+                <button class="close-modal" onclick="closeTemplateModal()">&times;</button>
+            </div>
+            <div id="template-modal-content" style="max-height: 60vh; overflow-y: auto; padding: 20px;"></div>
+            <div style="text-align: center; padding: 20px;">
+                <button class="btn btn-primary" onclick="realSignup()">Sign Up to Access All Templates</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+        // Set active navigation
+        setActiveNav('templates.html');
+        
+        // Template preview function
+        function showTemplatePreview(category) {
+            const templates = {
+                'client-communication': {
+                    title: 'Client Communication Templates',
+                    content: `
+                        <h4>Initial Consultation Response</h4>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 14px;">
+Dear [CLIENT_NAME],<br><br>
+Thank you for contacting [LAW_FIRM_NAME] regarding your [LEGAL_MATTER]. I have reviewed your initial inquiry and would be happy to discuss your case in more detail.<br><br>
+I am available for a consultation on [DATE_OPTIONS]. During our meeting, we will discuss:<br>
+• The specifics of your legal matter<br>
+• Potential legal strategies<br>
+• Our fee structure and payment options<br>
+• Timeline and next steps<br><br>
+Please call our office at [PHONE] or reply to this email to schedule your consultation.<br><br>
+Best regards,<br>
+[ATTORNEY_NAME]<br>
+[LAW_FIRM_NAME]
+                        </div>
+                        
+                        <h4>Case Status Update</h4>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 14px;">
+Dear [CLIENT_NAME],<br><br>
+I wanted to provide you with an update on your case, [CASE_NAME].<br><br>
+Recent Developments:<br>
+• [UPDATE_1]<br>
+• [UPDATE_2]<br>
+• [UPDATE_3]<br><br>
+Next Steps:<br>
+[NEXT_STEPS]<br><br>
+If you have any questions or concerns, please don't hesitate to contact me.<br><br>
+Best regards,<br>
+[ATTORNEY_NAME]
+                        </div>
+                    `
+                },
+                'court-communications': {
+                    title: 'Court & Legal Communications',
+                    content: `
+                        <h4>Opposing Counsel Letter</h4>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 14px;">
+[DATE]<br><br>
+[OPPOSING_COUNSEL_NAME]<br>
+[OPPOSING_FIRM_NAME]<br>
+[ADDRESS]<br><br>
+Re: [CASE_NAME] - [CASE_NUMBER]<br><br>
+Dear [OPPOSING_COUNSEL_NAME],<br><br>
+I am writing regarding the above-referenced matter. [PURPOSE_OF_LETTER]<br><br>
+[MAIN_CONTENT]<br><br>
+Please confirm receipt of this correspondence and advise of your position by [DATE].<br><br>
+Very truly yours,<br><br>
+[ATTORNEY_NAME]<br>
+[TITLE]<br>
+[LAW_FIRM_NAME]
+                        </div>
+                        
+                        <h4>Settlement Discussion</h4>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 14px;">
+[DATE]<br><br>
+Re: Settlement Discussion - [CASE_NAME]<br><br>
+Dear [OPPOSING_COUNSEL_NAME],<br><br>
+Following our recent conversation, I am writing to confirm our discussion regarding potential settlement of the above-referenced matter.<br><br>
+My client is willing to consider settlement under the following terms:<br>
+• [TERM_1]<br>
+• [TERM_2]<br>
+• [TERM_3]<br><br>
+This offer is made in the spirit of compromise and is subject to [CONDITIONS].<br><br>
+Please respond by [DATE] if your client is interested in pursuing this resolution.<br><br>
+Sincerely,<br>
+[ATTORNEY_NAME]
+                        </div>
+                    `
+                },
+                'personal-injury': {
+                    title: 'Personal Injury Templates',
+                    content: `
+                        <h4>Demand Letter - Personal Injury</h4>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 14px;">
+[DATE]<br><br>
+[INSURANCE_ADJUSTER_NAME]<br>
+[INSURANCE_COMPANY]<br>
+[ADDRESS]<br><br>
+Re: Claim Number: [CLAIM_NUMBER]<br>
+    Date of Loss: [DATE_OF_ACCIDENT]<br>
+    Insured: [INSURED_NAME]<br>
+    Claimant: [CLIENT_NAME]<br><br>
+Dear [ADJUSTER_NAME],<br><br>
+I represent [CLIENT_NAME] in connection with the motor vehicle accident that occurred on [DATE_OF_ACCIDENT] at [LOCATION].<br><br>
+FACTS OF THE ACCIDENT:<br>
+[ACCIDENT_DESCRIPTION]<br><br>
+INJURIES AND MEDICAL TREATMENT:<br>
+[MEDICAL_SUMMARY]<br><br>
+SPECIAL DAMAGES:<br>
+• Medical expenses: $[MEDICAL_EXPENSES]<br>
+• Lost wages: $[LOST_WAGES]<br>
+• Property damage: $[PROPERTY_DAMAGE]<br>
+Total Special Damages: $[TOTAL_SPECIALS]<br><br>
+SETTLEMENT DEMAND:<br>
+Based on the serious nature of my client's injuries and the clear liability of your insured, I hereby demand the sum of $[DEMAND_AMOUNT] in full settlement of this claim.<br><br>
+Very truly yours,<br>
+[ATTORNEY_NAME]
+                        </div>
+                    `
+                }
+            };
+            
+            const template = templates[category];
+            if (template) {
+                document.getElementById('template-modal-title').textContent = template.title;
+                document.getElementById('template-modal-content').innerHTML = template.content;
+                document.getElementById('template-modal').style.display = 'flex';
+            }
+        }
+        
+        function closeTemplateModal() {
+            document.getElementById('template-modal').style.display = 'none';
+        }
+        
+        // Close modal on outside click
+        document.getElementById('template-modal').onclick = function(e) {
+            if (e.target === this) {
+                closeTemplateModal();
+            }
+        }
+    </script>
+</body>
+</html>

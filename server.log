@@ -1,0 +1,32 @@
+🚀 ================================
+🚀 SMB AI Platform API Server
+🚀 ================================
+🌍 Environment: development
+📍 Server: http://localhost:3001
+📊 Health: http://localhost:3001/health
+ℹ️  Info: http://localhost:3001/api/info
+
+🔐 Authentication:
+   POST 3001/api/auth/signup
+   POST 3001/api/auth/signin
+   GET  3001/api/auth/me
+
+🤖 AI Processing:
+   POST 3001/api/ai/email/classify
+   POST 3001/api/ai/email/generate-response
+   POST 3001/api/ai/test
+
+🔌 Integrations:
+   GET  3001/api/integrations
+   GET  3001/api/integrations/available
+   POST 3001/api/integrations/connect/:type
+
+👤 User Management:
+   GET  3001/api/users/profile
+   GET  3001/api/users/stats
+
+🧪 Test Endpoints:
+   GET  3001/api/test
+   GET  3001/api/test/protected
+
+✨ Ready for development!

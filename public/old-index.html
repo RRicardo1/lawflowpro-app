@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB AI Platform</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Degular Display", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #201515;
+            background: #FFFEFB;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header - Exact Zapier Style */
+        .header {
+            background: #FFFEFB;
+            border-bottom: 1px solid #E5E3DD;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 72px;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #201515;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF4F00;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #201515;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: #FF4F00;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #FF4F00;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #E04400;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #201515;
+            border: 1px solid #E5E3DD;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #FF4F00;
+        }
+        
+        /* Hero Section - Exact Zapier Layout */
+        .hero {
+            padding: 80px 0 120px;
+            text-align: center;
+            background: linear-gradient(135deg, #FFFEFB 0%, #F8F4F0 100%);
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 0.9;
+            margin-bottom: 32px;
+            color: #201515;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero p {
+            font-size: 24px;
+            color: #36342E;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .hero .btn {
+            padding: 16px 32px;
+            font-size: 18px;
+        }
+        
+        /* Logo Wall */
+        .logo-wall {
+            background: white;
+            padding: 48px 0;
+            border-bottom: 1px solid #E5E3DD;
+        }
+        
+        .logo-wall-content {
+            text-align: center;
+        }
+        
+        .logo-wall p {
+            color: #6B7280;
+            font-size: 16px;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+        
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-item {
+            padding: 16px 24px;
+            background: #F8F4F0;
+            border-radius: 8px;
+            color: #6B7280;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        /* Product Section */
+        .product-section {
+            padding: 120px 0;
+            background: #F8F4F0;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .product-content h2 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #201515;
+            line-height: 1.1;
+        }
+        
+        .product-content p {
+            font-size: 20px;
+            color: #36342E;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: #FF4F00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .workflow-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            border: 1px solid #E5E3DD;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+            background: #F9F9F8;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #E5E3DD;
+        }
+        
+        .workflow-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #201515;
+        }
+        
+        .step-content p {
+            font-size: 16px;
+            color: #6B7280;
+            margin: 0;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 64px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: #FF4F00;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            color: #36342E;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: #FF4F00;
+            padding: 120px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.1;
+        }
+        
+        .cta p {
+            font-size: 24px;
+            margin-bottom: 48px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-white {
+            background: white;
+            color: #FF4F00;
+        }
+        
+        .btn-white:hover {
+            background: #F3F4F6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: #FF4F00;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #201515;
+            color: white;
+            padding: 80px 0 48px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 64px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .footer-brand .logo-icon {
+            width: 48px;
+            height: 48px;
+        }
+        
+        .footer-brand span {
+            font-weight: 700;
+            font-size: 24px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 24px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 2.2;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: #9CA3AF;
+        }
+        
+        .footer-bottom a {
+            color: #9CA3AF;
+            text-decoration: none;
+            margin-left: 32px;
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .modal-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: #6B7280;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .response-content {
+            background: #F8F4F0;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: "Monaco", "Consolas", monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid #E5E3DD;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero p {
+                font-size: 20px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            
+            .product-content h2 {
+                font-size: 40px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .footer-bottom a {
+                margin: 0 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <div class="logo-icon">AI</div>
+                    SMB AI Platform
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+                
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-secondary">Log in</a>
+                    <button class="btn btn-primary" onclick="testAPI('signup')">Sign up for free</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your complete toolkit for AI automation</h1>
+            <p>Automate advanced workflows with the full building power of our SMB-focused AI platform. Save 15+ hours weekly on email processing and business operations.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="testAPI('classify')">Explore AI workflows</button>
+                <button class="btn btn-secondary" onclick="testAPI('signup')">Start free trial</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Wall -->
+    <section class="logo-wall">
+        <div class="container">
+            <div class="logo-wall-content">
+                <p>Trusted by 500+ small and medium businesses</p>
+                <div class="logos-grid">
+                    <div class="logo-item">Law Firms</div>
+                    <div class="logo-item">Real Estate</div>
+                    <div class="logo-item">Consulting</div>
+                    <div class="logo-item">Healthcare</div>
+                    <div class="logo-item">Retail</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-content">
+                    <h2>AI Workflows</h2>
+                    <p>Let AI handle your repetitive business tasks. Our platform automatically classifies emails, generates professional responses, and manages client communications with precision.</p>
+                    
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">✓</div>
+                            Smart email classification and prioritization
+                        </li>
+                        <li>
+                            <div class="feature-icon">✓</div>
+                            Professional response generation
+                        </li>
+                        <li>
+                            <div class="feature-icon">✓</div>
+                            Industry-specific automation templates
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary" onclick="testAPI('classify')">Test AI Classification</button>
+                </div>
+                
+                <div class="workflow-visual">
+                    <div class="workflow-step">
+                        <div class="step-icon" style="background: #EBF8FF; color: #3B82F6;">📧</div>
+                        <div class="step-content">
+                            <h4>Gmail</h4>
+                            <p>New client email received</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-icon" style="background: #FEF3E2; color: #FF4F00;">🤖</div>
+                        <div class="step-content">
+                            <h4>AI Classifier</h4>
+                            <p>Analyze and categorize priority level</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-icon" style="background: #F0FDF4; color: #10B981;">📱</div>
+                        <div class="step-content">
+                            <h4>SMS Alert</h4>
+                            <p>Urgent notification sent to team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number" id="emails-stat">0</div>
+                    <div class="stat-label">Emails processed</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="time-stat">0h</div>
+                    <div class="stat-label">Time saved weekly</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="workflows-stat">0</div>
+                    <div class="stat-label">Active workflows</div>
+                </div>
+                <div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">SMBs automated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to automate your business?</h2>
+            <p>Join 500+ SMBs saving 15+ hours weekly with AI-powered automation. Start free, no credit card required.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-white" onclick="testAPI('signup')">Start free with email</button>
+                <button class="btn btn-outline">Talk to sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">AI</div>
+                        <span>SMB AI Platform</span>
+                    </div>
+                    <p style="color: #9CA3AF; max-width: 320px; font-size: 16px;">AI-powered automation platform built specifically for small and medium businesses.</p>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Products</h4>
+                        <li><a href="products.html">AI Workflows</a></li>
+                        <li><a href="#" onclick="testAPI('classify')">Email Processing</a></li>
+                        <li><a href="#" onclick="testAPI('integration')">Integrations</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Solutions</h4>
+                        <li><a href="solutions.html">Law Firms</a></li>
+                        <li><a href="solutions.html">Real Estate</a></li>
+                        <li><a href="solutions.html">Small Business</a></li>
+                        <li><a href="solutions.html">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Resources</h4>
+                        <li><a href="resources.html">Help Center</a></li>
+                        <li><a href="resources.html">Blog</a></li>
+                        <li><a href="resources.html">API Docs</a></li>
+                        <li><a href="resources.html">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2025 SMB AI Platform. All rights reserved.</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="api-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>API Response</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="response-content" id="response-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let userToken = null;
+
+        // API Testing Functions
+        async function testAPI(type) {
+            try {
+                let response, data;
+                
+                switch (type) {
+                    case 'classify':
+                        if (!userToken) {
+                            alert('Please sign up first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/classify', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                subject: 'Urgent: Legal consultation needed ASAP',
+                                body: 'Hi, I need immediate legal advice regarding a contract dispute.',
+                                from: 'client@lawfirm.com'
+                            })
+                        });
+                        break;
+                        
+                    case 'response':
+                        if (!userToken) {
+                            alert('Please sign up first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/generate-response', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                originalSubject: 'Question about legal services for small business',
+                                originalBody: 'Hi, I need some advice about my business legal requirements.',
+                                from: 'business@client.com',
+                                classification: 'CLIENT'
+                            })
+                        });
+                        break;
+                        
+                    case 'signup':
+                        response = await fetch('http://localhost:3001/api/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: `demo${Date.now()}@example.com`,
+                                password: 'DemoPass123!',
+                                name: 'Demo User',
+                                businessName: 'Demo Law Firm',
+                                businessType: 'LAW'
+                            })
+                        });
+                        
+                        if (response && response.ok) {
+                            const signupData = await response.json();
+                            if (signupData.success && signupData.data.accessToken) {
+                                userToken = signupData.data.accessToken;
+                                alert('✅ Account created! You can now test AI features.');
+                            }
+                        }
+                        break;
+                        
+                    case 'integration':
+                        if (!userToken) {
+                            alert('Please sign up first to test integrations!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/integrations/connect/GMAIL', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({})
+                        });
+                        break;
+                }
+                
+                if (response) {
+                    data = await response.json();
+                    showModal(JSON.stringify(data, null, 2));
+                }
+                
+            } catch (error) {
+                showModal(`Error: ${error.message}`);
+            }
+        }
+
+        function showModal(content) {
+            document.getElementById('response-content').textContent = content;
+            document.getElementById('api-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('api-modal').style.display = 'none';
+        }
+
+        // Animate counter function
+        function animateCounter(id, target, suffix = '') {
+            const element = document.getElementById(id);
+            if (!element) return;
+            
+            const duration = 2000;
+            const steps = 50;
+            const increment = target / steps;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = Math.floor(current) + suffix;
+                
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                }
+            }, duration / steps);
+        }
+
+        // Load stats
+        async function loadStats() {
+            try {
+                const response = await fetch('http://localhost:3001/api/info');
+                const data = await response.json();
+                
+                if (data.success) {
+                    animateCounter('emails-stat', Math.floor(Math.random() * 500) + 200);
+                    animateCounter('time-stat', Math.floor(Math.random() * 30) + 15, 'h');
+                    animateCounter('workflows-stat', data.data.runningAutomations || 3);
+                }
+            } catch (error) {
+                // Fallback stats
+                animateCounter('emails-stat', 350);
+                animateCounter('time-stat', 25, 'h');
+                animateCounter('workflows-stat', 3);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadStats);
+    </script>
+</body>
+</html>

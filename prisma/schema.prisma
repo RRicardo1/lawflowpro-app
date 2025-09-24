@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  businessName String
+  businessType BusinessType
+  isVerified   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  integrations Integration[]
+  automations  Automation[]
+  emails       Email[]
+  events       CalendarEvent[]
+  analytics    Analytics[]
+
+  @@map("users")
+}
+
+enum BusinessType {
+  LAW
+  REAL_ESTATE
+  RETAIL
+  CONSULTING
+  OTHER
+
+  @@map("business_types")
+}
+
+model Integration {
+  id         String            @id @default(cuid())
+  type       IntegrationType
+  name       String
+  isConnected Boolean          @default(false)
+  accessToken String?
+  refreshToken String?
+  tokenExpiry DateTime?
+  lastSync   DateTime?
+  status     IntegrationStatus @default(ACTIVE)
+  settings   Json              @default("{}")
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("integrations")
+}
+
+enum IntegrationType {
+  GMAIL
+  OUTLOOK
+  GOOGLE_CALENDAR
+  OUTLOOK_CALENDAR
+  QUICKBOOKS
+  XERO
+
+  @@map("integration_types")
+}
+
+enum IntegrationStatus {
+  ACTIVE
+  ERROR
+  DISABLED
+
+  @@map("integration_statuses")
+}
+
+model Automation {
+  id           String         @id @default(cuid())
+  name         String
+  type         AutomationType
+  isActive     Boolean        @default(true)
+  triggerCount Int            @default(0)
+  successCount Int            @default(0)
+  config       Json           @default("{}")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("automations")
+}
+
+enum AutomationType {
+  EMAIL_RESPONSE
+  CALENDAR_BOOKING
+  CHATBOT
+  INVOICE_GENERATION
+  EXPENSE_CATEGORIZATION
+
+  @@map("automation_types")
+}
+
+model Email {
+  id                 String      @id @default(cuid())
+  messageId          String      @unique
+  from               String
+  to                 String
+  subject            String
+  body               String      @db.Text
+  classification     EmailClass?
+  suggestedResponse  String?     @db.Text
+  status             EmailStatus @default(PENDING)
+  confidence         Float?
+  processedAt        DateTime?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("emails")
+}
+
+enum EmailClass {
+  URGENT
+  CLIENT
+  VENDOR
+  SPAM
+  OTHER
+
+  @@map("email_classes")
+}
+
+enum EmailStatus {
+  PENDING
+  APPROVED
+  SENT
+  REJECTED
+
+  @@map("email_statuses")
+}
+
+model CalendarEvent {
+  id        String      @id @default(cuid())
+  eventId   String      @unique
+  title     String
+  start     DateTime
+  end       DateTime
+  attendees String[]
+  type      EventType
+  status    EventStatus @default(SCHEDULED)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("calendar_events")
+}
+
+enum EventType {
+  CONSULTATION
+  MEETING
+  SHOWING
+  OTHER
+
+  @@map("event_types")
+}
+
+enum EventStatus {
+  SCHEDULED
+  CONFIRMED
+  CANCELLED
+
+  @@map("event_statuses")
+}
+
+model Analytics {
+  id               String        @id @default(cuid())
+  period           AnalyticsPeriod
+  timeSaved        Int           // in minutes
+  automationsRun   Int
+  emailsProcessed  Int
+  meetingsScheduled Int
+  successRate      Float
+  startDate        DateTime
+  endDate          DateTime
+  createdAt        DateTime      @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, period, startDate])
+  @@map("analytics")
+}
+
+enum AnalyticsPeriod {
+  WEEK
+  MONTH
+  QUARTER
+
+  @@map("analytics_periods")
+}

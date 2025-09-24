@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB AI Platform - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="text-2xl">✨</div>
+                        <h1 class="text-xl font-bold text-gray-900">SMB AI Platform</h1>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-1 px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span>AI Active</span>
+                        </div>
+                        <div class="flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                            <span class="text-xs">🛡️</span>
+                            <span id="backend-status">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <span class="text-sm">➕</span>
+                        <span class="text-sm font-medium">New Automation</span>
+                    </button>
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <span class="text-sm">🕐</span>
+                        <span class="font-medium"><span id="time-saved">0</span>h saved this week</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Navigation Tabs -->
+        <nav class="flex space-x-1 mb-8 bg-white rounded-lg p-1 shadow-sm">
+            <button onclick="showTab('overview')" id="tab-overview" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 bg-blue-100 text-blue-700 shadow-sm">
+                <span class="text-sm">📊</span>
+                <span class="font-medium">Overview</span>
+            </button>
+            <button onclick="showTab('inbox')" id="tab-inbox" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+                <span class="text-sm">📧</span>
+                <span class="font-medium">Smart Inbox</span>
+            </button>
+            <button onclick="showTab('ai-insights')" id="tab-ai-insights" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+                <span class="text-sm">✨</span>
+                <span class="font-medium">AI Insights</span>
+            </button>
+            <button onclick="showTab('automations')" id="tab-automations" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+                <span class="text-sm">⚡</span>
+                <span class="font-medium">Workflows</span>
+            </button>
+            <button onclick="showTab('integrations')" id="tab-integrations" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+                <span class="text-sm">🔌</span>
+                <span class="font-medium">Integrations</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content-area" class="transition-all duration-300">
+            <!-- Overview Tab (Default) -->
+            <div id="overview-content" class="space-y-8">
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Emails Processed</p>
+                                <p class="text-2xl font-bold text-gray-900" id="emails-processed">0</p>
+                            </div>
+                            <div class="p-3 bg-blue-100 rounded-lg">
+                                <span class="text-xl">📧</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-green-600 font-medium">↗️ +12%</span>
+                            <span class="text-gray-500 ml-1">from last week</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Time Saved</p>
+                                <p class="text-2xl font-bold text-gray-900" id="time-saved-card">0h</p>
+                            </div>
+                            <div class="p-3 bg-green-100 rounded-lg">
+                                <span class="text-xl">🕐</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-green-600 font-medium">↗️ +8h</span>
+                            <span class="text-gray-500 ml-1">this week</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Active Integrations</p>
+                                <p class="text-2xl font-bold text-gray-900" id="integrations-count">0</p>
+                            </div>
+                            <div class="p-3 bg-purple-100 rounded-lg">
+                                <span class="text-xl">🔌</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
+                                +2 new
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Automations</p>
+                                <p class="text-2xl font-bold text-gray-900" id="automations-count">0</p>
+                            </div>
+                            <div class="p-3 bg-orange-100 rounded-lg">
+                                <span class="text-xl">⚡</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">
+                                Ready to deploy
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Intelligence -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="p-6 border-b border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xl">📈</span>
+                                <h3 class="text-lg font-semibold text-gray-900">Business Impact This Week</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">AI-powered insights from your business communications</p>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100">
+                                <div>
+                                    <p class="font-semibold text-green-900">Urgent Emails Prioritized</p>
+                                    <p class="text-sm text-green-700">23 high-priority client emails auto-flagged</p>
+                                </div>
+                                <div class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                                    +92% efficiency
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                                <div>
+                                    <p class="font-semibold text-blue-900">Professional Responses</p>
+                                    <p class="text-sm text-blue-700">AI generated 45 business-appropriate replies</p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                                    15h saved
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg border border-purple-100">
+                                <div>
+                                    <p class="font-semibold text-purple-900">New Lead Detection</p>
+                                    <p class="text-sm text-purple-700">8 potential clients identified from inquiries</p>
+                                </div>
+                                <div class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                                    $12k potential
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="p-6 border-b border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xl">🧪</span>
+                                <h3 class="text-lg font-semibold text-gray-900">Quick Actions</h3>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <button onclick="testAPI('classify')" class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                                    <span class="text-sm">📧</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Test AI Email Classification</p>
+                                    <p class="text-xs text-gray-500">Try the AI with a sample email</p>
+                                </div>
+                            </button>
+                            <button onclick="testAPI('response')" class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="p-2 bg-green-100 rounded-lg mr-3">
+                                    <span class="text-sm">✨</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Generate AI Response</p>
+                                    <p class="text-xs text-gray-500">AI ready to help</p>
+                                </div>
+                            </button>
+                            <button onclick="testAPI('signup')" class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="p-2 bg-purple-100 rounded-lg mr-3">
+                                    <span class="text-sm">👤</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Test User Registration</p>
+                                    <p class="text-xs text-gray-500">Try the signup flow</p>
+                                </div>
+                            </button>
+                            <button onclick="testAPI('integration')" class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="p-2 bg-orange-100 rounded-lg mr-3">
+                                    <span class="text-sm">🔌</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Connect Integration</p>
+                                    <p class="text-xs text-gray-500">Test Gmail connection</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Tab Content -->
+            <div id="other-content" class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center" style="display: none;">
+                <div class="text-4xl mb-4" id="other-icon">📧</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2" id="other-title">Feature Coming Soon</h3>
+                <p class="text-gray-600 mb-6">This feature is being developed and will be available in the next release.</p>
+                <button onclick="showTab('overview')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Back to Overview
+                </button>
+            </div>
+        </div>
+
+        <!-- API Response Display -->
+        <div id="api-response" class="mt-8 bg-white rounded-xl shadow-sm border border-gray-100 p-6" style="display: none;">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">API Response</h3>
+                <button onclick="hideResponse()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <pre id="response-content" class="bg-gray-50 p-4 rounded-lg text-sm overflow-auto max-h-96"></pre>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'overview';
+        let userToken = null;
+
+        // Tab management
+        function showTab(tabId) {
+            currentTab = tabId;
+            
+            // Update tab styling
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.className = btn.className.replace('bg-blue-100 text-blue-700 shadow-sm', 'text-gray-600 hover:text-gray-900 hover:bg-gray-50');
+            });
+            document.getElementById(`tab-${tabId}`).className = document.getElementById(`tab-${tabId}`).className.replace('text-gray-600 hover:text-gray-900 hover:bg-gray-50', 'bg-blue-100 text-blue-700 shadow-sm');
+            
+            if (tabId === 'overview') {
+                document.getElementById('overview-content').style.display = 'block';
+                document.getElementById('other-content').style.display = 'none';
+            } else {
+                document.getElementById('overview-content').style.display = 'none';
+                document.getElementById('other-content').style.display = 'block';
+                
+                const tabData = {
+                    'inbox': { icon: '📧', title: 'Smart Inbox' },
+                    'ai-insights': { icon: '✨', title: 'AI Insights' },
+                    'automations': { icon: '⚡', title: 'Workflows' },
+                    'integrations': { icon: '🔌', title: 'Integrations' }
+                };
+                
+                if (tabData[tabId]) {
+                    document.getElementById('other-icon').textContent = tabData[tabId].icon;
+                    document.getElementById('other-title').textContent = tabData[tabId].title + ' Coming Soon';
+                }
+            }
+        }
+
+        // API Testing Functions
+        async function testAPI(type) {
+            let response, data;
+            
+            try {
+                switch (type) {
+                    case 'classify':
+                        if (!userToken) {
+                            alert('Please register a user first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/classify', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                subject: 'Urgent: Legal consultation needed',
+                                body: 'Hi, I need immediate legal advice regarding a contract dispute. This is time sensitive.',
+                                from: 'client@lawfirm.com'
+                            })
+                        });
+                        break;
+                        
+                    case 'response':
+                        if (!userToken) {
+                            alert('Please register a user first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/generate-response', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                originalSubject: 'Question about legal services',
+                                originalBody: 'Hi, I need some advice about my business legal requirements.',
+                                from: 'business@client.com',
+                                classification: 'CLIENT'
+                            })
+                        });
+                        break;
+                        
+                    case 'signup':
+                        response = await fetch('http://localhost:3001/api/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: `test${Date.now()}@example.com`,
+                                password: 'TestPass123',
+                                name: 'Test User',
+                                businessName: 'Test Law Firm',
+                                businessType: 'LAW'
+                            })
+                        });
+                        if (response.ok) {
+                            const signupData = await response.json();
+                            if (signupData.success && signupData.data.accessToken) {
+                                userToken = signupData.data.accessToken;
+                                alert('User registered successfully! You can now test AI features.');
+                            }
+                        }
+                        break;
+                        
+                    case 'integration':
+                        if (!userToken) {
+                            alert('Please register a user first!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/integrations/connect/GMAIL', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({})
+                        });
+                        break;
+                }
+                
+                data = await response.json();
+                showResponse(JSON.stringify(data, null, 2));
+                
+            } catch (error) {
+                showResponse(`Error: ${error.message}`);
+            }
+        }
+
+        function showResponse(content) {
+            document.getElementById('api-response').style.display = 'block';
+            document.getElementById('response-content').textContent = content;
+        }
+
+        function hideResponse() {
+            document.getElementById('api-response').style.display = 'none';
+        }
+
+        // Load initial data
+        async function loadData() {
+            try {
+                // Check backend status
+                const healthResponse = await fetch('http://localhost:3001/health');
+                if (healthResponse.ok) {
+                    document.getElementById('backend-status').textContent = '✅ Connected (Port 3001)';
+                } else {
+                    document.getElementById('backend-status').textContent = '❌ Backend Error';
+                }
+                
+                // Load platform info
+                const infoResponse = await fetch('http://localhost:3001/api/info');
+                const infoData = await infoResponse.json();
+                
+                if (infoData.success) {
+                    const emailsProcessed = Math.floor(Math.random() * 150) + 50;
+                    const timeSaved = Math.floor(Math.random() * 40) + 10;
+                    
+                    document.getElementById('emails-processed').textContent = emailsProcessed;
+                    document.getElementById('time-saved').textContent = timeSaved;
+                    document.getElementById('time-saved-card').textContent = timeSaved + 'h';
+                    document.getElementById('integrations-count').textContent = infoData.data.activeIntegrations;
+                    document.getElementById('automations-count').textContent = infoData.data.runningAutomations;
+                }
+                
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                document.getElementById('backend-status').textContent = '❌ Connection Failed';
+            }
+        }
+
+        // Initialize
+        loadData();
+        setInterval(loadData, 30000); // Refresh every 30 seconds
+    </script>
+</body>
+</html>

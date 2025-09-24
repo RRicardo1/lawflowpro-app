@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB AI Platform - The most connected AI orchestration platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zapier-cream': '#FFFEFB',
+                        'zapier-peach': '#F8F4F0', 
+                        'zapier-brown': '#201515',
+                        'zapier-brown-light': '#36342E',
+                        'zapier-orange': '#FF4F00',
+                        'zapier-beige': '#ECEAE3',
+                        'zapier-border': '#C5C0B1'
+                    },
+                    fontFamily: {
+                        'degular': ['Inter', 'system-ui', 'sans-serif'],
+                        'inter': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    fontSize: {
+                        'hero-desktop': ['80px', '0.9'],
+                        'hero-mobile': ['40px', '0.9'],
+                        'h2-desktop': ['56px', '1.1'],
+                        'h2-mobile': ['32px', '1.1'],
+                        'body-lg': ['20px', '1.5'],
+                        'body': ['16px', '1.5']
+                    },
+                    maxWidth: {
+                        'zapier': '1280px'
+                    },
+                    animation: {
+                        'scroll-left': 'scroll-left 30s linear infinite',
+                        'fade-up': 'fade-up 0.6s ease-out'
+                    },
+                    keyframes: {
+                        'scroll-left': {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        'fade-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            background: #FFFEFB;
+            color: #201515;
+        }
+        
+        .hero-text {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .btn-primary {
+            background: #FF4F00;
+            color: white;
+            border-radius: 4px;
+            transition: all 0.15s ease-in-out;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background: #E04400;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #201515;
+            border: 1px solid #ECEAE3;
+            border-radius: 4px;
+            transition: all 0.15s ease-in-out;
+            font-weight: 500;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #FF4F00;
+            transform: translateY(-1px);
+        }
+        
+        .nav-link {
+            transition: color 0.15s ease-in-out;
+        }
+        
+        .nav-link:hover {
+            color: #FF4F00;
+        }
+        
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .logo-ticker {
+            display: flex;
+            width: 200%;
+        }
+        
+        .logo-track {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body class="bg-zapier-cream text-zapier-brown">
+    
+    <!-- Header -->
+    <header class="bg-zapier-cream/95 backdrop-blur-sm sticky top-0 z-50 border-b border-zapier-beige">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-zapier-orange rounded-md flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">AI</span>
+                    </div>
+                    <span class="text-xl font-bold text-zapier-brown">SMB AI Platform</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <div class="dropdown relative">
+                        <button class="nav-link text-zapier-brown flex items-center space-x-1 py-2">
+                            <span>Products</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-72 bg-white border border-zapier-beige rounded-lg shadow-lg p-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown mb-2">AI Automation</h4>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">AI Email Processing</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Smart Workflows</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Business Intelligence</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown relative">
+                        <button class="nav-link text-zapier-brown flex items-center space-x-1 py-2">
+                            <span>Solutions</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-72 bg-white border border-zapier-beige rounded-lg shadow-lg p-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown mb-2">By Industry</h4>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Law Firms</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Real Estate</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Small Business</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="nav-link text-zapier-brown">Pricing</a>
+                    <a href="#" class="nav-link text-zapier-brown">Enterprise</a>
+                    
+                    <div class="dropdown relative">
+                        <button class="nav-link text-zapier-brown flex items-center space-x-1 py-2">
+                            <span>Resources</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-72 bg-white border border-zapier-beige rounded-lg shadow-lg p-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown mb-2">Learn</h4>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Help Center</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Blog</a>
+                                    <a href="#" class="block text-sm text-zapier-brown-light hover:text-zapier-orange py-1">Community</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                
+                <!-- Auth Buttons -->
+                <div class="flex items-center space-x-4">
+                    <button class="text-zapier-brown hover:text-zapier-orange font-medium text-sm transition-colors">
+                        Log in
+                    </button>
+                    <button onclick="testAPI('signup')" class="btn-primary px-5 py-2.5 text-sm">
+                        Sign up for free
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="bg-zapier-cream py-16 lg:py-24">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="hero-text text-hero-mobile lg:text-hero-desktop text-zapier-brown mb-6 animate-fade-up">
+                    The most connected AI orchestration platform
+                </h1>
+                <p class="text-body-lg text-zapier-brown-light max-w-2xl mx-auto mb-8 animate-fade-up" style="animation-delay: 0.1s">
+                    Build and ship AI workflows in minutes—no IT bottlenecks, no complexity. Just results for your small business.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-up" style="animation-delay: 0.2s">
+                    <button onclick="testAPI('signup')" class="btn-primary px-8 py-4 text-base w-full sm:w-auto">
+                        Start free with email
+                    </button>
+                    <button onclick="testAPI('signup')" class="btn-secondary px-8 py-4 text-base w-full sm:w-auto">
+                        Start free with Google
+                    </button>
+                </div>
+                <p class="text-sm text-zapier-brown-light">
+                    No credit card required. Free forever for core features.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Logo Ticker -->
+    <section class="bg-white border-y border-zapier-beige py-6 overflow-hidden">
+        <div class="text-center mb-4">
+            <p class="text-sm text-zapier-brown-light font-medium">Trusted by 500+ small and medium businesses</p>
+        </div>
+        <div class="logo-ticker animate-scroll-left">
+            <div class="logo-track">
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-red-100 rounded-md flex items-center justify-center">
+                        <span class="text-red-600 font-bold text-sm">L</span>
+                    </div>
+                    <span class="font-semibold">Law Firms</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-sm">R</span>
+                    </div>
+                    <span class="font-semibold">Real Estate</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-sm">C</span>
+                    </div>
+                    <span class="font-semibold">Consulting</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-sm">H</span>
+                    </div>
+                    <span class="font-semibold">Healthcare</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
+                        <span class="text-yellow-600 font-bold text-sm">R</span>
+                    </div>
+                    <span class="font-semibold">Retail</span>
+                </div>
+            </div>
+            <div class="logo-track">
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-red-100 rounded-md flex items-center justify-center">
+                        <span class="text-red-600 font-bold text-sm">L</span>
+                    </div>
+                    <span class="font-semibold">Law Firms</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-sm">R</span>
+                    </div>
+                    <span class="font-semibold">Real Estate</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-sm">C</span>
+                    </div>
+                    <span class="font-semibold">Consulting</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-sm">H</span>
+                    </div>
+                    <span class="font-semibold">Healthcare</span>
+                </div>
+                <div class="flex items-center space-x-2 text-zapier-brown-light">
+                    <div class="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
+                        <span class="text-yellow-600 font-bold text-sm">R</span>
+                    </div>
+                    <span class="font-semibold">Retail</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- AI Workflows Section -->
+    <section class="bg-zapier-peach py-16 lg:py-24">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-h2-mobile lg:text-h2-desktop font-bold text-zapier-brown mb-6">
+                        AI Workflows
+                    </h2>
+                    <p class="text-body-lg text-zapier-brown-light mb-8">
+                        Let AI handle your repetitive business tasks. Our platform automatically classifies emails, generates professional responses, and manages client communications—all tailored for your industry.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-zapier-orange rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <span class="text-zapier-brown">Smart email classification and prioritization</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-zapier-orange rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <span class="text-zapier-brown">Professional response generation</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-zapier-orange rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <span class="text-zapier-brown">Industry-specific automation templates</span>
+                        </div>
+                    </div>
+                    <button onclick="testAPI('classify')" class="btn-primary px-6 py-3 text-base">
+                        Test AI Classification
+                    </button>
+                </div>
+                
+                <!-- Visual Workflow -->
+                <div class="bg-white rounded-xl border border-zapier-beige p-8 shadow-sm">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between p-4 bg-zapier-cream rounded-lg border border-zapier-beige">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown">Gmail</h4>
+                                    <p class="text-sm text-zapier-brown-light">New email received</p>
+                                </div>
+                            </div>
+                            <div class="text-zapier-orange">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-zapier-cream rounded-lg border border-zapier-beige">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-zapier-orange bg-opacity-10 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-zapier-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown">AI Classifier</h4>
+                                    <p class="text-sm text-zapier-brown-light">Analyze and categorize</p>
+                                </div>
+                            </div>
+                            <div class="text-zapier-orange">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-zapier-cream rounded-lg border border-zapier-beige">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-zapier-brown">SMS Alert</h4>
+                                    <p class="text-sm text-zapier-brown-light">Urgent notification sent</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="bg-zapier-cream py-16">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl lg:text-5xl font-bold text-zapier-orange mb-2" id="stat-emails">0</div>
+                    <div class="text-zapier-brown-light font-medium">Emails processed</div>
+                </div>
+                <div>
+                    <div class="text-4xl lg:text-5xl font-bold text-zapier-orange mb-2" id="stat-time">0h</div>
+                    <div class="text-zapier-brown-light font-medium">Time saved weekly</div>
+                </div>
+                <div>
+                    <div class="text-4xl lg:text-5xl font-bold text-zapier-orange mb-2" id="stat-workflows">0</div>
+                    <div class="text-zapier-brown-light font-medium">Active workflows</div>
+                </div>
+                <div>
+                    <div class="text-4xl lg:text-5xl font-bold text-zapier-orange mb-2">500+</div>
+                    <div class="text-zapier-brown-light font-medium">SMBs automated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Integrations Section -->
+    <section class="bg-white py-16 lg:py-24">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">Gmail</h4>
+                        </div>
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">Calendar</h4>
+                        </div>
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">QuickBooks</h4>
+                        </div>
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">CRM</h4>
+                        </div>
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">SMS</h4>
+                        </div>
+                        <div class="bg-zapier-cream rounded-xl p-6 text-center border border-zapier-beige hover:border-zapier-orange transition-colors cursor-pointer">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-semibold text-zapier-brown text-sm">More</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-h2-mobile lg:text-h2-desktop font-bold text-zapier-brown mb-6">
+                        5,000+ integrations
+                    </h2>
+                    <p class="text-body-lg text-zapier-brown-light mb-8">
+                        Connect the apps you already use for email, scheduling, accounting, and more. Our AI platform integrates seamlessly with your existing business tools.
+                    </p>
+                    <button onclick="testAPI('integration')" class="btn-primary px-6 py-3 text-base">
+                        Connect Gmail
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="bg-zapier-orange py-16 lg:py-24">
+        <div class="max-w-zapier mx-auto px-6 text-center">
+            <h2 class="text-h2-mobile lg:text-h2-desktop font-bold text-white mb-6">
+                Ready to automate your business?
+            </h2>
+            <p class="text-body-lg text-orange-100 max-w-2xl mx-auto mb-8">
+                Join 500+ SMBs saving 15+ hours weekly with AI-powered automation. Start free, no credit card required.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="testAPI('signup')" class="bg-white text-zapier-orange px-8 py-4 text-base font-medium rounded-md hover:bg-gray-100 transition-colors w-full sm:w-auto">
+                    Start free with email
+                </button>
+                <button class="border-2 border-white text-white px-8 py-4 text-base font-medium rounded-md hover:bg-white hover:text-zapier-orange transition-colors w-full sm:w-auto">
+                    Talk to sales
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-zapier-brown text-white py-16">
+        <div class="max-w-zapier mx-auto px-6">
+            <div class="grid md:grid-cols-5 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 bg-zapier-orange rounded-md flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">AI</span>
+                        </div>
+                        <span class="text-xl font-bold">SMB AI Platform</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-sm">
+                        AI-powered automation platform built specifically for small and medium businesses. Save time, reduce costs, and scale your operations.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Products</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">AI Workflows</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Email Processing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Analytics</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Solutions</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Law Firms</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Real Estate</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Small Business</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Resources</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API Docs</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 SMB AI Platform. All rights reserved.
+                </div>
+                <div class="flex space-x-6 text-gray-400 text-sm">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- API Response Modal -->
+    <div id="api-response-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-96 overflow-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-zapier-brown">API Response</h3>
+                <button onclick="hideResponse()" class="text-zapier-brown-light hover:text-zapier-brown text-xl">&times;</button>
+            </div>
+            <pre id="response-content" class="bg-zapier-peach p-4 rounded-lg text-sm overflow-auto border border-zapier-beige"></pre>
+        </div>
+    </div>
+
+    <script>
+        let userToken = null;
+
+        // API Testing Functions
+        async function testAPI(type) {
+            let response, data;
+            
+            try {
+                switch (type) {
+                    case 'classify':
+                        if (!userToken) {
+                            alert('Please sign up first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/classify', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                subject: 'Urgent: Legal consultation needed ASAP',
+                                body: 'Hi, I need immediate legal advice regarding a contract dispute. This is time sensitive and could affect our business significantly.',
+                                from: 'client@lawfirm.com'
+                            })
+                        });
+                        break;
+                        
+                    case 'response':
+                        if (!userToken) {
+                            alert('Please sign up first to test AI features!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/ai/email/generate-response', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({
+                                originalSubject: 'Question about legal services for small business',
+                                originalBody: 'Hi, I need some advice about my business legal requirements and contract review services.',
+                                from: 'business@client.com',
+                                classification: 'CLIENT'
+                            })
+                        });
+                        break;
+                        
+                    case 'signup':
+                        response = await fetch('http://localhost:3001/api/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: `demo${Date.now()}@example.com`,
+                                password: 'DemoPass123!',
+                                name: 'Demo User',
+                                businessName: 'Demo Law Firm',
+                                businessType: 'LAW'
+                            })
+                        });
+                        if (response.ok) {
+                            const signupData = await response.json();
+                            if (signupData.success && signupData.data.accessToken) {
+                                userToken = signupData.data.accessToken;
+                                alert('✅ Welcome! Account created successfully. You can now test all AI features.');
+                            }
+                        }
+                        break;
+                        
+                    case 'integration':
+                        if (!userToken) {
+                            alert('Please sign up first to test integrations!');
+                            return;
+                        }
+                        response = await fetch('http://localhost:3001/api/integrations/connect/GMAIL', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${userToken}`
+                            },
+                            body: JSON.stringify({})
+                        });
+                        break;
+                }
+                
+                data = await response.json();
+                showResponse(JSON.stringify(data, null, 2));
+                
+            } catch (error) {
+                showResponse(`Error: ${error.message}`);
+            }
+        }
+
+        function showResponse(content) {
+            document.getElementById('api-response-modal').style.display = 'flex';
+            document.getElementById('response-content').textContent = content;
+        }
+
+        function hideResponse() {
+            document.getElementById('api-response-modal').style.display = 'none';
+        }
+
+        // Animated Counter Function
+        function animateCounter(id, target, suffix = '') {
+            const element = document.getElementById(id);
+            const duration = 2000;
+            const steps = 60;
+            const increment = target / steps;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = Math.floor(current) + suffix;
+                
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                }
+            }, duration / steps);
+        }
+
+        // Load Platform Stats
+        async function loadStats() {
+            try {
+                const infoResponse = await fetch('http://localhost:3001/api/info');
+                const infoData = await infoResponse.json();
+                
+                if (infoData.success) {
+                    animateCounter('stat-emails', Math.floor(Math.random() * 500) + 200);
+                    animateCounter('stat-time', Math.floor(Math.random() * 40) + 15, 'h');
+                    animateCounter('stat-workflows', infoData.data.runningAutomations || 3);
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+                // Fallback with demo stats
+                animateCounter('stat-emails', 350);
+                animateCounter('stat-time', '25', 'h');
+                animateCounter('stat-workflows', 3);
+            }
+        }
+
+        // Initialize
+        loadStats();
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

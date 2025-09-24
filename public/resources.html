@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - LawFlowPro</title>
+    <link rel="stylesheet" href="css/shared.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚖️</div>
+                    LawFlowPro
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="resources.html" class="active">Resources</a></li>
+                </ul>
+                
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-secondary">Log in</a>
+                    <button class="btn btn-primary" onclick="realSignup()">Sign up for free</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Legal Resources & Support</h1>
+            <p>Everything you need to succeed with legal practice automation. From getting started guides to advanced API documentation for attorneys.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            
+            <!-- Quick Start Guide -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">🚀 Get Started in Minutes</h2>
+                
+                <div class="content-grid grid-3">
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">1</div>
+                        <h3>Sign Up</h3>
+                        <p>Create your free account and connect your Gmail account in under 2 minutes.</p>
+                        <button class="btn btn-primary" onclick="realSignup()" style="margin-top: 16px;">Create Account</button>
+                    </div>
+                    
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">2</div>
+                        <h3>Test AI</h3>
+                        <p>Try our email classification and response generation with sample data.</p>
+                        <button class="btn btn-secondary" onclick="testAPI('classify')" style="margin-top: 16px;">Test Classification</button>
+                    </div>
+                    
+                    <div class="content-card text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #FF4F00; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">3</div>
+                        <h3>Go Live</h3>
+                        <p>Set up your first automation workflow and start saving time immediately.</p>
+                        <button class="btn btn-secondary" style="margin-top: 16px;">Setup Guide</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="margin-bottom: 40px;">📚 Documentation</h2>
+                
+                <div class="content-grid grid-2">
+                    <div class="content-card">
+                        <h3>📖 User Guides</h3>
+                        <p style="margin-bottom: 24px;">Step-by-step guides to help you get the most out of our platform.</p>
+                        <ul style="list-style: none;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Getting Started with AI Email Classification</span>
+                                    <span style="color: #6B7280; font-size: 12px;">5 min read</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Setting Up Gmail Integration</span>
+                                    <span style="color: #6B7280; font-size: 12px;">3 min read</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Customizing AI Response Templates</span>
+                                    <span style="color: #6B7280; font-size: 12px;">7 min read</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <a href="#" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Advanced Workflow Automation</span>
+                                    <span style="color: #6B7280; font-size: 12px;">10 min read</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>🔧 API Documentation</h3>
+                        <p style="margin-bottom: 24px;">Complete API reference for developers and technical integrations.</p>
+                        <ul style="list-style: none;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" onclick="realSignup()" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Authentication & API Keys</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">LIVE</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" onclick="testAPI('classify')" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Email Classification API</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">LIVE</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid #ECEAE3;">
+                                <a href="#" onclick="testAPI('response')" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Response Generation API</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">LIVE</span>
+                                </a>
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <a href="#" onclick="testAPI('integration')" style="text-decoration: none; color: #201515; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Integrations & Webhooks</span>
+                                    <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px;">LIVE</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Center -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="margin-bottom: 40px;">🎯 Help Center</h2>
+                
+                <div class="content-grid grid-3">
+                    <div class="content-card">
+                        <h3>❓ FAQs</h3>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="font-size: 16px; margin-bottom: 8px;">How accurate is the AI classification?</h4>
+                            <p style="font-size: 14px; color: #6B7280;">Our AI achieves 95%+ accuracy on email classification, improving over time with your feedback.</p>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="font-size: 16px; margin-bottom: 8px;">Can I customize response templates?</h4>
+                            <p style="font-size: 14px; color: #6B7280;">Yes! You can create custom templates and train the AI to match your business tone.</p>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%;">View All FAQs</button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>🎥 Video Tutorials</h3>
+                        <div style="margin-bottom: 16px;">
+                            <div style="background: #F3F4F6; border-radius: 8px; padding: 40px; text-align: center; margin-bottom: 12px;">
+                                <div style="font-size: 32px;">▶️</div>
+                            </div>
+                            <h4 style="font-size: 16px; margin-bottom: 4px;">Platform Overview</h4>
+                            <p style="font-size: 14px; color: #6B7280;">5-minute walkthrough of key features</p>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%;">Watch Tutorials</button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>💬 Community</h3>
+                        <p style="margin-bottom: 20px;">Join our community of 500+ business owners sharing automation tips and best practices.</p>
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-size: 14px; margin-bottom: 8px;">🔥 <strong>Hot Topics:</strong></div>
+                            <ul style="list-style: none; font-size: 14px; color: #6B7280;">
+                                <li>• Law firm automation strategies</li>
+                                <li>• Real estate lead management</li>
+                                <li>• Custom workflow examples</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%;">Join Community</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Testing Panel -->
+            <div class="content-card" style="background: #F8F4F0; margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 32px;">🧪 Live API Testing</h2>
+                <p style="text-align: center; margin-bottom: 32px; color: #36342E;">
+                    Test our AI APIs directly from this page. Perfect for developers evaluating integration options.
+                </p>
+                
+                <div class="content-grid grid-2">
+                    <div style="text-align: center;">
+                        <h3>Email Classification</h3>
+                        <p style="margin-bottom: 20px; color: #6B7280;">Test our AI's ability to categorize and prioritize emails</p>
+                        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border: 1px solid #ECEAE3;">
+                            <div style="text-align: left; font-size: 14px; color: #6B7280; margin-bottom: 8px;"><strong>Sample Email:</strong></div>
+                            <div style="text-align: left; font-size: 14px; font-family: monospace; background: #F9FAFB; padding: 12px; border-radius: 6px;">
+                                Subject: "Urgent: Legal consultation needed"<br>
+                                From: client@example.com<br>
+                                Body: "Hi, I need immediate legal advice..."
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="testAPI('classify')" style="width: 100%;">Test Classification API</button>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h3>Response Generation</h3>
+                        <p style="margin-bottom: 20px; color: #6B7280;">Generate professional responses with AI</p>
+                        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border: 1px solid #ECEAE3;">
+                            <div style="text-align: left; font-size: 14px; color: #6B7280; margin-bottom: 8px;"><strong>Will Generate:</strong></div>
+                            <div style="text-align: left; font-size: 14px; color: #36342E;">
+                                • Professional business tone<br>
+                                • Context-aware content<br>
+                                • Industry-specific language<br>
+                                • Appropriate next steps
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="testAPI('response')" style="width: 100%;">Test Response API</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Options -->
+            <div style="margin-bottom: 80px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">🤝 Get Support</h2>
+                
+                <div class="content-grid grid-3">
+                    <div class="content-card text-center">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📧</div>
+                        <h3>Email Support</h3>
+                        <p style="margin-bottom: 20px;">Get help via email with our standard support. Typical response time: 4-6 hours.</p>
+                        <p style="color: #FF4F00; font-weight: 600; margin-bottom: 20px;">Free & Professional plans</p>
+                        <button class="btn btn-secondary">Send Email</button>
+                    </div>
+
+                    <div class="content-card text-center">
+                        <div style="font-size: 48px; margin-bottom: 16px;">💬</div>
+                        <h3>Live Chat</h3>
+                        <p style="margin-bottom: 20px;">Chat with our support team in real-time. Available during business hours.</p>
+                        <p style="color: #FF4F00; font-weight: 600; margin-bottom: 20px;">Professional & Enterprise</p>
+                        <button class="btn btn-primary">Start Chat</button>
+                    </div>
+
+                    <div class="content-card text-center">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📞</div>
+                        <h3>Phone Support</h3>
+                        <p style="margin-bottom: 20px;">Talk directly with our technical experts. 24/7 availability for critical issues.</p>
+                        <p style="color: #FF4F00; font-weight: 600; margin-bottom: 20px;">Enterprise only</p>
+                        <button class="btn btn-secondary">Schedule Call</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status & Updates -->
+            <div class="content-card" style="background: #F0FDF4; border: 1px solid #10B981; margin-bottom: 40px;">
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                    <div style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    <h3 style="color: #10B981; margin: 0;">System Status: All Systems Operational</h3>
+                </div>
+                <div class="content-grid grid-4">
+                    <div style="text-align: center;">
+                        <div style="color: #10B981; font-weight: 600;">99.9%</div>
+                        <div style="color: #6B7280; font-size: 14px;">Uptime</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #10B981; font-weight: 600;">< 200ms</div>
+                        <div style="color: #6B7280; font-size: 14px;">API Response</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #10B981; font-weight: 600;">Active</div>
+                        <div style="color: #6B7280; font-size: 14px;">AI Processing</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #10B981; font-weight: 600;">Normal</div>
+                        <div style="color: #6B7280; font-size: 14px;">All Integrations</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #10B981; text-decoration: none; font-size: 14px;">View Detailed Status →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">⚖️</div>
+                        <span style="font-weight: bold; font-size: 18px;">LawFlowPro</span>
+                    </div>
+                    <p style="color: #9CA3AF; max-width: 300px;">AI-powered legal practice synchronization platform built specifically for attorneys and law firms.</p>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Products</h4>
+                        <li><a href="products.html">AI Workflows</a></li>
+                        <li><a href="#" onclick="testAPI('classify')">Email Processing</a></li>
+                        <li><a href="#" onclick="testAPI('integration')">Integrations</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Solutions</h4>
+                        <li><a href="solutions.html">Law Firms</a></li>
+                        <li><a href="solutions.html">Real Estate</a></li>
+                        <li><a href="solutions.html">Small Business</a></li>
+                        <li><a href="solutions.html">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Resources</h4>
+                        <li><a href="resources.html">Help Center</a></li>
+                        <li><a href="resources.html">Blog</a></li>
+                        <li><a href="resources.html">API Docs</a></li>
+                        <li><a href="resources.html">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2025 LawFlowPro. All rights reserved.</div>
+                <div>
+                    <a href="#" style="margin-right: 24px;">Privacy Policy</a>
+                    <a href="#" style="margin-right: 24px;">Terms</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="api-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>API Response</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="response-content" id="response-content"></div>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+        // Set active navigation
+        setActiveNav('resources.html');
+    </script>
+    
+    <style>
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</body>
+</html>

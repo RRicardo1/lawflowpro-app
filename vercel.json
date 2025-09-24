@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "comprehensive-test-server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/comprehensive-test-server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - LawFlowPro</title>
+    <link rel="stylesheet" href="css/shared.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚖️</div>
+                    LawFlowPro
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+                
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-secondary">Log in</a>
+                    <button class="btn btn-primary" onclick="realSignup()">Sign up for free</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Legal AI Products for Law Firm Automation</h1>
+            <p>Powerful AI tools built specifically for attorneys and law firms. Automate legal email processing, client communications, and case workflow management.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="content-grid grid-2">
+                <div class="content-card">
+                    <h3>⚖️ Legal AI Email Classifier</h3>
+                    <p>Automatically categorize and prioritize legal emails with 95% accuracy. Identify urgent legal matters, client inquiries, court notices, and opposing counsel communications instantly.</p>
+                    <ul style="list-style: none; margin-bottom: 20px;">
+                        <li style="padding: 4px 0;">✓ Legal email categorization</li>
+                        <li style="padding: 4px 0;">✓ Urgent legal matter detection</li>
+                        <li style="padding: 4px 0;">✓ Custom law firm rules</li>
+                        <li style="padding: 4px 0;">✓ Multi-language support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="testAPI('classify')">Test Classification</button>
+                </div>
+
+                <div class="content-card">
+                    <h3>⚖️ Legal Response Generator</h3>
+                    <p>Generate professional, legally-appropriate email responses that match your law firm's tone and legal standards. Save hours on client communications while maintaining legal compliance.</p>
+                    <ul style="list-style: none; margin-bottom: 20px;">
+                        <li style="padding: 4px 0;">✓ Legal response templates</li>
+                        <li style="padding: 4px 0;">✓ Attorney-appropriate language</li>
+                        <li style="padding: 4px 0;">✓ Legal disclaimers included</li>
+                        <li style="padding: 4px 0;">✓ Client confidentiality protected</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="testAPI('response')">Try Response AI</button>
+                </div>
+
+                <div class="content-card">
+                    <h3>🔗 Smart Integrations</h3>
+                    <p>Connect with Gmail, Outlook, Slack, and 50+ business tools. Seamless data flow between your existing software stack.</p>
+                    <ul style="list-style: none; margin-bottom: 20px;">
+                        <li style="padding: 4px 0;">✓ Gmail & Outlook sync</li>
+                        <li style="padding: 4px 0;">✓ CRM integrations</li>
+                        <li style="padding: 4px 0;">✓ Slack notifications</li>
+                        <li style="padding: 4px 0;">✓ Custom webhooks</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="testAPI('integration')">Test Integration</button>
+                </div>
+
+                <div class="content-card">
+                    <h3>📊 Analytics Dashboard</h3>
+                    <p>Track email processing metrics, response times, and automation performance. Make data-driven decisions to optimize your workflows.</p>
+                    <ul style="list-style: none; margin-bottom: 20px;">
+                        <li style="padding: 4px 0;">✓ Email volume tracking</li>
+                        <li style="padding: 4px 0;">✓ Response time metrics</li>
+                        <li style="padding: 4px 0;">✓ Automation ROI analysis</li>
+                        <li style="padding: 4px 0;">✓ Custom reporting</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="testAPI('classify')">View Demo</button>
+                </div>
+            </div>
+
+            <!-- Single Pricing Plan -->
+            <div style="margin-top: 80px; text-align: center;">
+                <h2 style="margin-bottom: 40px;">Simple, All-Inclusive Legal Pricing</h2>
+                <div style="max-width: 500px; margin: 0 auto;">
+                    <div class="content-card text-center" style="border: 3px solid #FF4F00; position: relative; background: linear-gradient(135deg, #FFFEFB 0%, #F8F4F0 100%);">
+                        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #FF4F00; color: white; padding: 8px 24px; border-radius: 20px; font-size: 12px; font-weight: 600;">
+                            COMPLETE SOLUTION
+                        </div>
+                        
+                        <h3 style="color: #FF4F00; margin-top: 20px;">LawFlowPro Legal</h3>
+                        <div style="font-size: 64px; font-weight: 700; color: #FF4F00; margin: 32px 0;">$97<span style="font-size: 20px; color: #6B7280;">/month</span></div>
+                        <div style="background: #10B981; color: white; padding: 8px 16px; border-radius: 6px; margin-bottom: 20px; font-weight: 600;">First Month FREE</div>
+                        <p style="margin-bottom: 40px; font-size: 18px; color: #36342E;">Everything you need to automate your legal practice with AI</p>
+                        
+                        <div style="text-align: left; max-width: 400px; margin: 0 auto;">
+                            <h4 style="margin-bottom: 20px; text-align: center; color: #201515;">✨ All Features Included:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    Unlimited legal email processing
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    Advanced legal AI classification
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    All legal integrations (Gmail, Calendar, Billing)
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    AI legal response generation
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    Priority legal support
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <span style="color: #10B981; margin-right: 12px; font-weight: bold;">✓</span>
+                                    Advanced legal analytics
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; padding: 16px 32px; font-size: 18px; margin-top: 40px;" onclick="realSignup()">Start Free Month</button>
+                        <p style="font-size: 14px; color: #6B7280; margin-top: 16px;">No credit card required • Cancel anytime • Setup support included</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">⚖️</div>
+                        <span style="font-weight: bold; font-size: 18px;">LawFlowPro</span>
+                    </div>
+                    <p style="color: #9CA3AF; max-width: 300px;">AI-powered legal practice synchronization platform built specifically for attorneys and law firms.</p>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Products</h4>
+                        <li><a href="products.html">AI Workflows</a></li>
+                        <li><a href="#" onclick="testAPI('classify')">Email Processing</a></li>
+                        <li><a href="#" onclick="testAPI('integration')">Integrations</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Solutions</h4>
+                        <li><a href="solutions.html">Law Firms</a></li>
+                        <li><a href="solutions.html">Real Estate</a></li>
+                        <li><a href="solutions.html">Small Business</a></li>
+                        <li><a href="solutions.html">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="footer-links">
+                        <h4>Resources</h4>
+                        <li><a href="resources.html">Help Center</a></li>
+                        <li><a href="resources.html">Blog</a></li>
+                        <li><a href="resources.html">API Docs</a></li>
+                        <li><a href="resources.html">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2025 LawFlowPro. All rights reserved.</div>
+                <div>
+                    <a href="#" style="margin-right: 24px;">Privacy Policy</a>
+                    <a href="#" style="margin-right: 24px;">Terms</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="api-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>API Response</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="response-content" id="response-content"></div>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+        // Set active navigation
+        setActiveNav('products.html');
+        
+        // Contact Sales function
+        function contactSales() {
+            const salesInfo = {
+                message: "Thank you for your interest in LawFlowPro!",
+                contact: {
+                    email: "sales@counselsync.com",
+                    phone: "+1 (555) 123-4567",
+                    hours: "Monday - Friday, 9 AM - 6 PM EST"
+                },
+                nextSteps: [
+                    "1. Schedule a 15-minute demo call",
+                    "2. Discuss your specific business needs",
+                    "3. Get a customized implementation plan",
+                    "4. Start your free trial with dedicated support"
+                ],
+                note: "We typically respond within 2 hours during business hours."
+            };
+            
+            showModal(JSON.stringify(salesInfo, null, 2));
+        }
+    </script>
+</body>
+</html>
