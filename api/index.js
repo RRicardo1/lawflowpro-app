@@ -54,9 +54,14 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Simple test routes
 app.get('/api/test', (req, res) => {
   res.json({
-    message: 'LawFlowPro API is working!',
-    timestamp: new Date().toISOString(),
-    env: process.env.NODE_ENV || 'development'
+    success: true,
+    message: 'LawFlowPro Legal Platform API is working perfectly!',
+    data: {
+      environment: process.env.NODE_ENV || 'development',
+      registeredUsers: users.length,
+      activeIntegrations: integrations.size,
+      timestamp: new Date().toISOString()
+    }
   });
 });
 
