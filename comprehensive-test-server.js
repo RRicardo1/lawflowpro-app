@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { google } = require('googleapis');
+const path = require('path');
 
 require('dotenv').config();
 
@@ -46,6 +47,25 @@ app.use(express.json());
 
 // Serve static files from public directory
 app.use(express.static('public'));
+
+// Debug route for Vercel
+app.get('/debug', (req, res) => {
+  res.json({
+    message: 'LawFlowPro server is running!',
+    timestamp: new Date().toISOString(),
+    port: PORT,
+    env: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Root route fallback
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'), (err) => {
+    if (err) {
+      res.status(500).json({ error: 'Could not serve index.html', details: err.message });
+    }
+  });
+});
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
