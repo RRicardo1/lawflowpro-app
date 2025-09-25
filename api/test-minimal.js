@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
         <p>This confirms the route handler is working correctly.</p>
         <p>Route: GET /</p>
         <p>Timestamp: ${new Date().toISOString()}</p>
+        <p><strong>FORCE REBUILD #1</strong></p>
         <a href="/api/test">Test API Route</a>
     </body>
     </html>
