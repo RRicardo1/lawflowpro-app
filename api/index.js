@@ -83,8 +83,8 @@ app.get('/api/debug', (req, res) => {
   });
 });
 
-// Serve static HTML files
-app.get('/', (req, res) => {
+// Serve HTML files through API routes (since only /api/* routes work on Vercel)
+app.get('/api/home', (req, res) => {
   const indexPath = path.join(__dirname, '../public/index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
@@ -97,7 +97,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/templates.html', (req, res) => {
+app.get('/api/templates', (req, res) => {
   const templatesPath = path.join(__dirname, '../public/templates.html');
   res.sendFile(templatesPath, (err) => {
     if (err) {
@@ -110,7 +110,7 @@ app.get('/templates.html', (req, res) => {
   });
 });
 
-app.get('/products.html', (req, res) => {
+app.get('/api/products', (req, res) => {
   const productsPath = path.join(__dirname, '../public/products.html');
   res.sendFile(productsPath, (err) => {
     if (err) {
@@ -123,7 +123,7 @@ app.get('/products.html', (req, res) => {
   });
 });
 
-app.get('/login.html', (req, res) => {
+app.get('/api/login', (req, res) => {
   const loginPath = path.join(__dirname, '../public/login.html');
   res.sendFile(loginPath, (err) => {
     if (err) {
@@ -136,7 +136,7 @@ app.get('/login.html', (req, res) => {
   });
 });
 
-app.get('/pricing.html', (req, res) => {
+app.get('/api/pricing', (req, res) => {
   const pricingPath = path.join(__dirname, '../public/pricing.html');
   res.sendFile(pricingPath, (err) => {
     if (err) {
@@ -149,7 +149,7 @@ app.get('/pricing.html', (req, res) => {
   });
 });
 
-app.get('/enterprise.html', (req, res) => {
+app.get('/api/enterprise', (req, res) => {
   const enterprisePath = path.join(__dirname, '../public/enterprise.html');
   res.sendFile(enterprisePath, (err) => {
     if (err) {
@@ -162,7 +162,7 @@ app.get('/enterprise.html', (req, res) => {
   });
 });
 
-app.get('/resources.html', (req, res) => {
+app.get('/api/resources', (req, res) => {
   const resourcesPath = path.join(__dirname, '../public/resources.html');
   res.sendFile(resourcesPath, (err) => {
     if (err) {
@@ -175,7 +175,7 @@ app.get('/resources.html', (req, res) => {
   });
 });
 
-app.get('/solutions.html', (req, res) => {
+app.get('/api/solutions', (req, res) => {
   const solutionsPath = path.join(__dirname, '../public/solutions.html');
   res.sendFile(solutionsPath, (err) => {
     if (err) {
