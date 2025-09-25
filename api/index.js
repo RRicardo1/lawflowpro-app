@@ -1,4 +1,3 @@
-// Vercel serverless function entry point
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -6,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { google } = require('googleapis');
 const path = require('path');
+const fs = require('fs');
 
 // Load environment variables
 require('dotenv').config();
@@ -21,7 +21,6 @@ const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 // In-memory storage for testing
 const users = [];
 const integrations = new Map();
-const automations = new Map();
 
 app.use(helmet({
   contentSecurityPolicy: {
@@ -48,10 +47,65 @@ app.use(cors({
 
 app.use(express.json());
 
-// Serve static files from public directory
-app.use(express.static(path.join(__dirname, '../public')));
+// Helper function to serve static files
+function serveStaticFile(filePath, contentType, res) {
+  try {
+    const absolutePath = path.join(__dirname, '..', filePath);
+    const fileContent = fs.readFileSync(absolutePath, 'utf8');
+    res.setHeader('Content-Type', contentType);
+    res.send(fileContent);
+  } catch (error) {
+    console.error(`Error serving file ${filePath}:`, error);
+    res.status(404).json({ 
+      error: `File not found: ${filePath}`,
+      details: error.message 
+    });
+  }
+}
 
-// Simple test routes
+// Static file routes
+app.get('/', (req, res) => {
+  serveStaticFile('public/index.html', 'text/html', res);
+});
+
+app.get('/templates.html', (req, res) => {
+  serveStaticFile('public/templates.html', 'text/html', res);
+});
+
+app.get('/products.html', (req, res) => {
+  serveStaticFile('public/products.html', 'text/html', res);
+});
+
+app.get('/login.html', (req, res) => {
+  serveStaticFile('public/login.html', 'text/html', res);
+});
+
+app.get('/pricing.html', (req, res) => {
+  serveStaticFile('public/pricing.html', 'text/html', res);
+});
+
+app.get('/enterprise.html', (req, res) => {
+  serveStaticFile('public/enterprise.html', 'text/html', res);
+});
+
+app.get('/resources.html', (req, res) => {
+  serveStaticFile('public/resources.html', 'text/html', res);
+});
+
+app.get('/solutions.html', (req, res) => {
+  serveStaticFile('public/solutions.html', 'text/html', res);
+});
+
+// CSS and JS files
+app.get('/css/:filename', (req, res) => {
+  serveStaticFile(`public/css/${req.params.filename}`, 'text/css', res);
+});
+
+app.get('/js/:filename', (req, res) => {
+  serveStaticFile(`public/js/${req.params.filename}`, 'application/javascript', res);
+});
+
+// API routes
 app.get('/api/test', (req, res) => {
   res.json({
     success: true,
@@ -65,126 +119,21 @@ app.get('/api/test', (req, res) => {
   });
 });
 
-app.get('/test-route', (req, res) => {
-  res.json({
-    message: 'Test route is working!',
-    path: req.path,
-    timestamp: new Date().toISOString()
-  });
-});
-
 app.get('/api/debug', (req, res) => {
   res.json({
     message: 'LawFlowPro server is running!',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
     hasGoogleClientId: !!process.env.GOOGLE_CLIENT_ID,
-    hasJwtSecret: !!process.env.JWT_SECRET
-  });
-});
-
-// Serve HTML files through API routes (since only /api/* routes work on Vercel)
-app.get('/api/home', (req, res) => {
-  const indexPath = path.join(__dirname, '../public/index.html');
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve index.html', 
-        details: err.message,
-        path: indexPath 
-      });
-    }
-  });
-});
-
-app.get('/api/templates', (req, res) => {
-  const templatesPath = path.join(__dirname, '../public/templates.html');
-  res.sendFile(templatesPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve templates.html', 
-        details: err.message,
-        path: templatesPath 
-      });
-    }
-  });
-});
-
-app.get('/api/products', (req, res) => {
-  const productsPath = path.join(__dirname, '../public/products.html');
-  res.sendFile(productsPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve products.html', 
-        details: err.message,
-        path: productsPath 
-      });
-    }
-  });
-});
-
-app.get('/api/login', (req, res) => {
-  const loginPath = path.join(__dirname, '../public/login.html');
-  res.sendFile(loginPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve login.html', 
-        details: err.message,
-        path: loginPath 
-      });
-    }
-  });
-});
-
-app.get('/api/pricing', (req, res) => {
-  const pricingPath = path.join(__dirname, '../public/pricing.html');
-  res.sendFile(pricingPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve pricing.html', 
-        details: err.message,
-        path: pricingPath 
-      });
-    }
-  });
-});
-
-app.get('/api/enterprise', (req, res) => {
-  const enterprisePath = path.join(__dirname, '../public/enterprise.html');
-  res.sendFile(enterprisePath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve enterprise.html', 
-        details: err.message,
-        path: enterprisePath 
-      });
-    }
-  });
-});
-
-app.get('/api/resources', (req, res) => {
-  const resourcesPath = path.join(__dirname, '../public/resources.html');
-  res.sendFile(resourcesPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve resources.html', 
-        details: err.message,
-        path: resourcesPath 
-      });
-    }
-  });
-});
-
-app.get('/api/solutions', (req, res) => {
-  const solutionsPath = path.join(__dirname, '../public/solutions.html');
-  res.sendFile(solutionsPath, (err) => {
-    if (err) {
-      res.status(500).json({ 
-        error: 'Could not serve solutions.html', 
-        details: err.message,
-        path: solutionsPath 
-      });
-    }
+    hasJwtSecret: !!process.env.JWT_SECRET,
+    routes: [
+      '/ (homepage)',
+      '/templates.html',
+      '/products.html',
+      '/login.html',
+      '/api/test',
+      '/api/debug'
+    ]
   });
 });
 
@@ -318,16 +267,91 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-// Catch-all route for debugging
-app.get('*', (req, res) => {
+// AI endpoints
+app.post('/api/ai/email/classify', authenticateToken, (req, res) => {
+  const { emailContent } = req.body;
+  
+  if (!emailContent) {
+    return res.status(400).json({ error: 'Email content is required' });
+  }
+
+  // Mock AI classification for legal emails
+  const classifications = [
+    'URGENT_LEGAL',
+    'CLIENT_INQUIRY', 
+    'COURT_NOTICE',
+    'OPPOSING_COUNSEL',
+    'ROUTINE_CORRESPONDENCE'
+  ];
+  
+  const randomClassification = classifications[Math.floor(Math.random() * classifications.length)];
+  
   res.json({
-    message: 'Catch-all route hit',
-    path: req.path,
-    url: req.url,
-    method: req.method,
-    timestamp: new Date().toISOString(),
-    note: 'This route catches all unmatched requests'
+    classification: randomClassification,
+    confidence: Math.random() * 0.3 + 0.7, // 70-100% confidence
+    suggestedActions: [`Handle as ${randomClassification}`, 'Review priority level', 'Add to case file'],
+    timestamp: new Date().toISOString()
   });
+});
+
+app.post('/api/ai/email/generate-response', authenticateToken, (req, res) => {
+  const { emailContent, responseType = 'professional' } = req.body;
+  
+  if (!emailContent) {
+    return res.status(400).json({ error: 'Email content is required' });
+  }
+
+  const responses = {
+    professional: "Thank you for your inquiry. We have received your message and will review it promptly. Please note that this communication does not establish an attorney-client relationship.",
+    urgent: "We acknowledge receipt of your urgent matter. Our legal team will prioritize this issue and respond within 24 hours.",
+    consultation: "Thank you for your interest in our legal services. We would be happy to schedule a consultation to discuss your matter in detail."
+  };
+
+  res.json({
+    generatedResponse: responses[responseType] || responses.professional,
+    responseType,
+    legalDisclaimer: "This response is generated for efficiency. Please review before sending.",
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Template endpoints
+app.get('/api/templates/categories', authenticateToken, (req, res) => {
+  res.json([
+    { id: 1, name: 'Personal Injury', count: 45 },
+    { id: 2, name: 'Family Law', count: 38 },
+    { id: 3, name: 'Corporate Law', count: 52 },
+    { id: 4, name: 'Real Estate', count: 29 },
+    { id: 5, name: 'Criminal Defense', count: 33 }
+  ]);
+});
+
+app.get('/api/templates/:templateId', authenticateToken, (req, res) => {
+  const templates = {
+    1: {
+      id: 1,
+      name: 'Personal Injury Demand Letter',
+      category: 'Personal Injury',
+      content: 'Template content for demand letter...',
+      fields: ['client_name', 'defendant_name', 'incident_date', 'damages']
+    }
+  };
+  
+  const template = templates[req.params.templateId];
+  if (!template) {
+    return res.status(404).json({ error: 'Template not found' });
+  }
+  
+  res.json(template);
+});
+
+// Integration endpoints
+app.get('/api/integrations/available', (req, res) => {
+  res.json([
+    { name: 'Gmail', status: 'available', description: 'Email management and automation' },
+    { name: 'Google Calendar', status: 'available', description: 'Schedule management' },
+    { name: 'Stripe', status: 'available', description: 'Payment processing' }
+  ]);
 });
 
 // Export for Vercel
