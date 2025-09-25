@@ -2,22 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/test-minimal.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/test-minimal.js"
-    },
-    {
-      "src": "/",
-      "dest": "/api/test-minimal.js"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/api/test-minimal.js"
+      "dest": "/api/index.js"
     }
   ],
   "env": {
