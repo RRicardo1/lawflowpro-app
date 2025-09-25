@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
         <h1>🎉 LAWFLOWPRO IS WORKING!</h1>
         <p>Platform successfully deployed and running!</p>
         <p>Ready for law firms at ${new Date().toISOString()}</p>
+        <p><strong>DEPLOYMENT TEST #1</strong></p>
         <h2>⚖️ Your Legal Practice, In Perfect Flow</h2>
     </div>
 </body>
