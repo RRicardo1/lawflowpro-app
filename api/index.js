@@ -65,6 +65,14 @@ app.get('/api/test', (req, res) => {
   });
 });
 
+app.get('/test-route', (req, res) => {
+  res.json({
+    message: 'Test route is working!',
+    path: req.path,
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.get('/api/debug', (req, res) => {
   res.json({
     message: 'LawFlowPro server is running!',
@@ -308,6 +316,18 @@ app.post('/api/auth/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Login failed', details: error.message });
   }
+});
+
+// Catch-all route for debugging
+app.get('*', (req, res) => {
+  res.json({
+    message: 'Catch-all route hit',
+    path: req.path,
+    url: req.url,
+    method: req.method,
+    timestamp: new Date().toISOString(),
+    note: 'This route catches all unmatched requests'
+  });
 });
 
 // Export for Vercel
