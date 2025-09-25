@@ -137,6 +137,24 @@ app.get('/api/debug', (req, res) => {
   });
 });
 
+// Test static file serving through API route
+app.get('/api/homepage', (req, res) => {
+  try {
+    const absolutePath = path.join(__dirname, '..', 'public', 'index.html');
+    const fileContent = fs.readFileSync(absolutePath, 'utf8');
+    res.setHeader('Content-Type', 'text/html');
+    res.send(fileContent);
+  } catch (error) {
+    console.error('Error serving homepage:', error);
+    res.status(404).json({ 
+      error: 'File not found: public/index.html',
+      details: error.message,
+      __dirname,
+      path: path.join(__dirname, '..', 'public', 'index.html')
+    });
+  }
+});
+
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
