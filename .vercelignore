@@ -1,0 +1,18 @@
+# Development files
+.env.example
+.env.production
+server.log
+test-*.js
+
+# Git directory
+.git
+
+# Source TypeScript files
+src/
+tsconfig.json
+
+# Prisma development files
+prisma/
+
+# Large documentation
+CLAUDE.md
