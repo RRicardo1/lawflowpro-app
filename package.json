@@ -4,18 +4,9 @@
   "description": "Backend API for SMB AI Automation Platform",
   "main": "comprehensive-test-server.js",
   "scripts": {
-    "dev": "node --loader tsx/esm --watch src/index.ts",
-    "build": "npx tsc",
-    "start": "node comprehensive-test-server.js",
-    "lint": "eslint src --ext .ts",
-    "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx src/scripts/seed.ts",
-    "setup": "npm install && npm run db:generate"
+    "build": "echo 'No build step needed for serverless functions'",
+    "start": "node api/index.js",
+    "dev": "node api/index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
